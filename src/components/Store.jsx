@@ -2,9 +2,11 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 const MOMO_DEEPLINK_OR_PAYMENT_LINK = "https://me.momo.vn/4GIlinijidIdfeFvixix";
-// On Vercel the frontend is usually deployed without the backend API.
-// Use the static QR image shipped in public/ to avoid broken images.
-const MOMO_QR_IMAGE_SRC = "/momo-qr.png";
+// Prefer API endpoint so the QR "works" like intended on Vercel.
+// Also keep fallback to a static image to avoid broken UI if the API route
+// is not available in your deploy setup.
+const MOMO_QR_IMAGE_SRC = "/api/momo/qr-image";
+const MOMO_QR_FALLBACK_SRC = "/momo-qr.png";
 
 const packages = [
   {
@@ -131,6 +133,9 @@ export default function Store() {
                   src={MOMO_QR_IMAGE_SRC}
                   alt="MoMo QR"
                   className="h-[220px] w-[220px] object-contain"
+                  onError={(e) => {
+                    e.currentTarget.src = MOMO_QR_FALLBACK_SRC;
+                  }}
                 />
               </div>
 
@@ -149,6 +154,9 @@ export default function Store() {
                   className="mr-2 h-7 w-7 rounded-sm bg-white/90 object-contain"
                   src={MOMO_QR_IMAGE_SRC}
                   alt="MoMo QR"
+                  onError={(e) => {
+                    e.currentTarget.src = MOMO_QR_FALLBACK_SRC;
+                  }}
                 />
                 <span>Mở sang app MoMo để chuyển tiền</span>
               </a>
