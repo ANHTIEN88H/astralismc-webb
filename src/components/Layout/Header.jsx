@@ -19,10 +19,10 @@ export default function Header({ onPlayClick }) {
           className="flex items-center gap-3"
         >
           <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-md bg-mcPanel/80 shadow-glowSoft">
-            {/* public/assets/astralis-hero.png */}
+            {/* public/assets/astralis-logo.png */}
             <img
-              src="/assets/astralis-hero.png
-              alt="AstralisMC hero"
+              src="/assets/astralis-logo.png"
+              alt="AstralisMC logo"
               className="h-9 w-9 object-cover"
               draggable={false}
             />
