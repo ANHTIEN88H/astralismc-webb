@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+/* Minecraft-style border panels */
+.panel {
+  @apply rounded-xl border border-slate-700/70 bg-mcPanel backdrop-blur;
+}
+
+/* Glow button */
+.btn-glow {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-indigo-200/80
+  bg-gradient-to-br from-pink-300/60 via-indigo-300/40 to-sky-300/60
+  px-4 py-2 text-sm font-medium text-slate-900 shadow-glow
+  transition-transform duration-150 hover:-translate-y-0.5 active:translate-y-0;
+}
+
+/* Pixel title */
+.pixel-title {
+  @apply font-pixel tracking-wide uppercase;
+}
+
+/* Simple scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #22c55e;
+  border-radius: 999px;
+}
