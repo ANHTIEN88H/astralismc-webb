@@ -25,6 +25,7 @@ export default function Header({ onPlayClick }) {
               alt="AstralisMC logo"
               className="h-9 w-9 object-cover"
               draggable={false}
+              data-header-logo="astralis-logo"
             />
           </div>
           <div>
