@@ -8,8 +8,8 @@ export default function Hero({ onCopyIp, onJoinDiscord }) {
       id="hero"
       className="relative overflow-hidden border-b border-slate-800/70"
       style={{
-        // Replace hero background with the composed image (logo overlay).
-        backgroundImage: "url('/assets/provided-base-with-logo.png')",
+        // Old background (with the rest of the UI overlaying on top).
+        backgroundImage: "url('/assets/astralis-hero.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
