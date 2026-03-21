@@ -34,7 +34,7 @@ export default function GameModes() {
           Nhiều chế độ chơi để bạn không bao giờ chán.
         </p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
           {modes.map((mode, idx) => (
             <motion.div
               key={mode.name}
@@ -42,7 +42,7 @@ export default function GameModes() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05 }}
-              className="panel relative overflow-hidden p-5 hover:border-cyan-400/50 transition-colors"
+              className="panel relative overflow-hidden p-6 hover:border-cyan-400/50 transition-colors"
             >
               <div
                 className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${mode.color} opacity-15`}

@@ -73,9 +73,9 @@ export default function Rules() {
         </motion.div>
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
-          <div className="panel p-4">
+          <div className="panel p-6">
             <h3 className="rules-section-title">Trên Discord</h3>
-            <ol className="mt-4 list-decimal space-y-3 pl-6">
+            <ol className="mt-4 list-decimal space-y-4 pl-6">
               {discordRules.map((r) => (
                 <li key={r.n} className="rules-item">
                   {r.text}
@@ -84,9 +84,9 @@ export default function Rules() {
             </ol>
           </div>
 
-          <div className="panel p-4">
+          <div className="panel p-6">
             <h3 className="rules-section-title">Trong máy chủ</h3>
-            <ol className="mt-4 list-decimal space-y-3 pl-6">
+            <ol className="mt-4 list-decimal space-y-4 pl-6">
               {serverRules.map((r) => (
                 <li key={r.n} className="rules-item">
                   {r.text}

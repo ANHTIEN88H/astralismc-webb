@@ -68,7 +68,7 @@ export default function Store() {
           Ủng hộ server và nhận rank đẹp, không phải pay‑to‑win.
         </p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-6 md:grid-cols-3">
           {packages.map((p, i) => (
             <motion.div
               key={p.name}
@@ -76,25 +76,25 @@ export default function Store() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="panel relative overflow-hidden p-4"
+              className="panel relative overflow-hidden p-6"
             >
               <div
                 className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${p.accent} opacity-60`}
               />
-              <div className="relative space-y-2 text-xs">
-                <h3 className="pixel-title text-[11px] text-[#ADD8E6]">
+              <div className="relative space-y-3 text-sm">
+                <h3 className="pixel-title text-base text-[#ADD8E6]">
                   {p.name}
                 </h3>
-                <div className="text-sm font-semibold text-slate-100">
+                <div className="text-lg font-semibold text-slate-100">
                   {p.price}
                 </div>
-                <ul className="mt-2 space-y-1 text-[11px] text-slate-200">
+                <ul className="mt-3 space-y-2 text-sm text-slate-200">
                   {p.perks.map((perk) => (
                     <li key={perk}>• {perk}</li>
                   ))}
                 </ul>
                 <button
-                  className="mt-3 w-full rounded-md border border-emerald-400/70 bg-slate-900/80 py-2 text-[11px] font-semibold text-[#ADD8E6] shadow-glowSoft transition hover:bg-emerald-500/20 disabled:opacity-60"
+                  className="mt-4 w-full rounded-md border border-emerald-400/70 bg-slate-900/80 py-3 text-sm font-semibold text-[#ADD8E6] shadow-glowSoft transition hover:bg-emerald-500/20 disabled:opacity-60"
                   onClick={() => handleBuy(p)}
                   disabled={loading}
                 >

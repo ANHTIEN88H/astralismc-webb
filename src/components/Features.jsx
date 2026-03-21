@@ -34,7 +34,7 @@ export default function Features() {
           Hệ thống được thiết kế cho cảm giác chơi lâu dài, mượt và công bằng.
         </p>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-4">
+        <div className="mt-8 grid gap-6 md:grid-cols-4">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
@@ -42,16 +42,16 @@ export default function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="panel flex flex-col gap-3 p-5 hover:border-cyan-400/50 transition-colors"
+              className="panel flex flex-col gap-4 p-6 hover:border-cyan-400/50 transition-colors"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/20 text-2xl flex-shrink-0">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan-500/20 text-3xl flex-shrink-0">
                 {f.icon}
               </div>
               <div>
-                <h3 className="game-mode-title text-base text-cyan-100 mb-2">
+                <h3 className="game-mode-title text-lg text-cyan-100 mb-2">
                   {f.title}
                 </h3>
-                <p className="game-mode-description text-xs md:text-sm text-slate-300 leading-relaxed">
+                <p className="game-mode-description text-sm md:text-base text-slate-300 leading-relaxed">
                   {f.text}
                 </p>
               </div>
