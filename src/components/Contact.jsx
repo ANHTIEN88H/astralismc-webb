@@ -54,6 +54,50 @@ export default function Contact({ onToast }) {
     }
   };
 
+  const handlePurchase = async (rankName, price) => {
+    // Sếp có thể dùng link Webhook cũ hoặc tạo một link mới cho kênh #nap-the
+    const WEBHOOK_STORE_URL = "DÁN_LINK_WEBHOOK_KÊNH_NẠP_THẺ_VÀO_ĐÂY";
+
+    // Yêu cầu người chơi nhập tên để biết ai mua
+    const playerName = prompt("Nhập tên Ingame của sếp để Admin cộng Rank:");
+    if (!playerName) return;
+
+    const payload = {
+      // Tag @everyone hoặc ID của sếp để báo có tiền về!
+      content: "💰 **CÓ ĐƠN HÀNG MỚI ĐANG CHỜ DUYỆT!**",
+      embeds: [
+        {
+          title: "💎 CHI TIẾT GIAO DỊCH",
+          color: 0xffa500, // Màu cam cho rực rỡ
+          fields: [
+            { name: "👤 Người mua", value: playerName, inline: true },
+            { name: "🏆 Gói Rank", value: rankName, inline: true },
+            { name: "💵 Số tiền", value: price, inline: true },
+            {
+              name: "📝 Trạng thái",
+              value: "Đang chờ Admin kiểm tra ngân hàng...",
+            },
+          ],
+          footer: { text: "AstralisMC Store - Cảm ơn sếp đã ủng hộ!" },
+          timestamp: new Date(),
+        },
+      ],
+    };
+
+    try {
+      await fetch(WEBHOOK_STORE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      alert(
+        "✅ Đã gửi yêu cầu! Sếp vui lòng chuyển khoản/nạp thẻ và chờ Admin duyệt nhé.",
+      );
+    } catch (err) {
+      alert("❌ Lỗi gửi đơn hàng!");
+    }
+  };
+
   return (
     <section id="contact" className="border-t border-slate-800/80">
       <div className="mx-auto max-w-6xl px-4 py-10">

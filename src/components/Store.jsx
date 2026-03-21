@@ -58,6 +58,51 @@ export default function Store() {
     }
   };
 
+  const handlePurchase = async (rankName, price) => {
+    // 1. Hỏi tên ingame
+    const playerName = prompt(
+      `Sếp mua gói ${rankName}, nhập tên Ingame để Admin xác nhận nhé:`,
+    );
+    if (!playerName) return;
+
+    setLoading(true); // Bật hiệu ứng loading
+
+    const WEBHOOK_URL =
+      "https://discord.com/api/webhooks/1485033160868626552/f-CwvU3TO-JzFhTPyzMye4yg_naA2KWmGh0xsCXXvFoKRK6hCOBzAW2YaSrwxKPxhQOg";
+
+    try {
+      // 2. Gửi thông báo về Discord
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: "<@1359147263632609460> 💰 **CÓ ĐƠN HÀNG MỚI TỪ STORE!**",
+          embeds: [
+            {
+              title: "💎 CHI TIẾT GIAO DỊCH",
+              color: 0xffa500,
+              fields: [
+                { name: "👤 Người mua", value: playerName, inline: true },
+                { name: "🏆 Gói mua", value: rankName, inline: true },
+                { name: "💵 Giá tiền", value: price, inline: true },
+              ],
+              footer: { text: "AstralisMC Store" },
+              timestamp: new Date(),
+            },
+          ],
+        }),
+      });
+
+      // 3. QUAN TRỌNG: Sau khi gửi Discord thành công thì MỞ BẢNG QR
+      setQrOpen(true);
+    } catch (err) {
+      alert("Lỗi gửi đơn hàng!");
+      setError("Không thể kết nối đến hệ thống thông báo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section id="store">
       <div className="mx-auto max-w-6xl px-4 py-10">
@@ -95,7 +140,7 @@ export default function Store() {
                 </ul>
                 <button
                   className="mt-4 w-full rounded-md border border-emerald-400/70 bg-slate-900/80 py-3 text-sm font-semibold text-[#ADD8E6] shadow-glowSoft transition hover:bg-emerald-500/20 disabled:opacity-60"
-                  onClick={() => handleBuy(p)}
+                  onClick={() => handlePurchase(p.name, p.price)}
                   disabled={loading}
                 >
                   Mua gói
