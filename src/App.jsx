@@ -14,6 +14,7 @@ import Rules from "./components/Rules";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Toast from "./components/Toast";
+import Leaderboard from "./components/Leaderboard";
 
 export default function App() {
   const [toast, setToast] = useState("");
@@ -55,6 +56,7 @@ export default function App() {
         <ServerInfo onCopyIp={handleCopyIp} />
         <GameModes />
         <Features />
+        <Leaderboard />
         <Store />
         <Rules />
         <Gallery />

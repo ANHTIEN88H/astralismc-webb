@@ -50,7 +50,7 @@ export default function Contact({ onToast }) {
       alert("✅ Đã gửi hỗ trợ thành công!");
       setFormData({ ingame: "", email: "", message: "" }); // Gửi xong xóa trắng ô nhập
     } catch (err) {
-      alert("❌ Lỗi gửi tin, sếp check lại link Webhook nhé!");
+      alert("❌ Lỗi gửi tin, bạn check lại link Webhook nhé!");
     }
   };
 
@@ -59,7 +59,7 @@ export default function Contact({ onToast }) {
     const WEBHOOK_STORE_URL = "DÁN_LINK_WEBHOOK_KÊNH_NẠP_THẺ_VÀO_ĐÂY";
 
     // Yêu cầu người chơi nhập tên để biết ai mua
-    const playerName = prompt("Nhập tên Ingame của sếp để Admin cộng Rank:");
+    const playerName = prompt("Nhập tên Ingame của bạn để Admin cộng Rank:");
     if (!playerName) return;
 
     const payload = {
@@ -78,7 +78,7 @@ export default function Contact({ onToast }) {
               value: "Đang chờ Admin kiểm tra ngân hàng...",
             },
           ],
-          footer: { text: "AstralisMC Store - Cảm ơn sếp đã ủng hộ!" },
+          footer: { text: "AstralisMC Store - Cảm ơn bạn đã ủng hộ!" },
           timestamp: new Date(),
         },
       ],
@@ -91,7 +91,7 @@ export default function Contact({ onToast }) {
         body: JSON.stringify(payload),
       });
       alert(
-        "✅ Đã gửi yêu cầu! Sếp vui lòng chuyển khoản/nạp thẻ và chờ Admin duyệt nhé.",
+        "✅ Đã gửi yêu cầu! bạn vui lòng chuyển khoản/nạp thẻ và chờ Admin duyệt nhé.",
       );
     } catch (err) {
       alert("❌ Lỗi gửi đơn hàng!");
