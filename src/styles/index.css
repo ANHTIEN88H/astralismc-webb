@@ -132,3 +132,18 @@ body {
   background: #22c55e;
   border-radius: 999px;
 }
+
+/* Ép thanh menu tác vụ dùng lại phông chữ và kích thước nhỏ ban đầu */
+.navbar,
+.nav-links,
+.nav-item,
+.nav-link {
+  font-family: var(
+    --font-fallback
+  ) !important; /* Dùng phông chữ mặc định, sạch sẽ (như Inter/Outfit sếp đã tạo) */
+  font-size: 14px !important; /* Đặt kích thước nhỏ gọn (ví dụ: 14px) */
+  font-weight: 500 !important;
+  text-transform: none !important; /* Bỏ viết hoa toàn bộ nếu cần */
+  letter-spacing: normal !important; /* Bỏ giãn cách chữ quá rộng */
+  text-shadow: none !important; /* Bỏ bóng đổ nếu bị dính từ tiêu đề */
+}

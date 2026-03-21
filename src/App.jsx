@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./styles/index.css";
+import "./font-minecraft-overhaul.css";
 import Dashboard from "./components/MinecraftDashboard/Dashboard";
 import ParticlesBackground from "./components/Background/ParticlesBackground";
 import Header from "./components/Layout/Header";

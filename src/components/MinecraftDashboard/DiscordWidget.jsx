@@ -17,7 +17,7 @@ export default function DiscordWidget() {
   }, []);
 
   return (
-    <div className="flex items-center gap-4 p-2 rounded-lg backdrop-blur-lg bg-black/30 border border-pink-500/50 shadow-glow transition-all duration-300">
+    <div className="discord-mini-widget flex items-center gap-4 p-2 rounded-lg backdrop-blur-lg bg-black/30 border border-pink-500/50 shadow-glow transition-all duration-300">
       <div className="flex-shrink-0 w-10 h-10 bg-[#5865F2] rounded-full flex items-center justify-center">
         <svg
           className="w-6 h-6 text-white"

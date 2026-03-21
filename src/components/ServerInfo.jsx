@@ -52,9 +52,7 @@ export default function ServerInfo({ onCopyIp }) {
         {/* Header */}
         <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <h2 className="pixel-title text-sm text-[#ADD8E6]">
-              SERVER STATUS
-            </h2>
+            <h2 className="final-fix-title">SERVER STATUS</h2>
             <p className="mt-1 text-xs text-slate-300 md:text-sm">
               Kiểm tra trạng thái server và thông tin phiên bản.
             </p>

@@ -397,3 +397,137 @@
   opacity: 1;
   transform: translateX(-50%) translateY(-2px);
 }
+
+/* Chỉ phóng to tiêu đề "SERVER STATUS" trong khu vực riêng */
+.pixel-title.server-status-title {
+  font-family:
+    "Press Start 2P", cursive !important; /* Ép dùng phông chữ Pixel cho tiêu đề này */
+  font-size: clamp(
+    32px,
+    5vw,
+    48px
+  ) !important; /* Phóng to kích thước (tối đa 48px) */
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  text-shadow:
+    3px 3px 0px #d946ef,
+    5px 5px 0px rgba(0, 0, 0, 0.8) !important; /* Bóng đổ 3D ngầu */
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 10px !important;
+  display: block !important;
+}
+
+/* Làm cho chữ SERVER STATUS đặc và có bóng đổ như GAME MODES */
+.minecraft-title-shadow {
+  font-family: "VT323", monospace !important;
+  color: #add8e6 !important; /* Màu xanh light blue giống ảnh sếp soi */
+  text-shadow: 3px 3px 0px #000000 !important; /* Bóng đen dày, không mờ */
+  -webkit-text-stroke: 0px; /* Xóa bỏ viền rỗng nếu có */
+  paint-order: stroke fill;
+  display: block;
+  filter: drop-shadow(2px 2px 0px rgba(0, 0, 0, 0.5));
+}
+
+/* Ép kích thước tiêu đề cân bằng */
+.section-title {
+  font-weight: 900 !important;
+  line-height: 1.2;
+}
+
+/* 1. Trả lại tên cho em: Fix thanh menu và toàn bộ web về size chuẩn */
+html,
+body,
+nav,
+.navbar,
+.nav-link,
+header span {
+  font-size: 16px !important; /* Kích thước chuẩn cho web */
+  font-family: "Inter", sans-serif !important; /* Hoặc font gốc của sếp */
+}
+
+/* 2. Đánh riêng vào thằng SERVER STATUS: Chỉ mình nó to */
+.special-server-title {
+  font-family: "VT323", monospace !important;
+  font-size: 55px !important; /* Chỉ mình thằng này to vật vã */
+  line-height: 1 !important;
+  display: block !important;
+  text-transform: uppercase !important;
+  /* Bóng đổ đen sắc nét */
+  text-shadow: 3px 3px 0px #000000 !important;
+}
+
+/* 3. Fix dòng mô tả nhỏ bên dưới tiêu đề không bị to theo */
+.special-server-title + p {
+  font-size: 14px !important;
+  color: #c4b5fd !important;
+}
+
+/* Thu nhỏ toàn bộ Widget Discord */
+.discord-mini-widget {
+  transform: scale(0.85) !important; /* Thu nhỏ toàn bộ 15% */
+  transform-origin: right center; /* Thu nhỏ về phía bên phải */
+  padding: 4px 10px !important; /* Thu nhỏ khoảng cách đệm */
+  background: rgba(
+    88,
+    101,
+    242,
+    0.2
+  ) !important; /* Làm màu nền nhạt đi cho thanh thoát */
+  border-radius: 10px !important;
+}
+
+/* Thu nhỏ chữ bên trong Discord */
+.discord-mini-widget span,
+.discord-mini-widget div {
+  font-size: 11px !important; /* Chữ nhỏ lại cho tinh tế */
+  font-family:
+    "Inter", sans-serif !important; /* Dùng font sạch, đừng dùng pixel cho chỗ này */
+  letter-spacing: 0.5px !important;
+  text-transform: none !important; /* Không cần viết hoa toàn bộ */
+}
+
+/* Thu nhỏ icon Discord */
+.discord-mini-widget svg,
+.discord-mini-widget img {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Thu nhỏ cái chấm xanh Online */
+.discord-mini-widget .online-dot {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+/* LỆNH ÉP KIỂU ĐỒNG BỘ 100% VỚI GAME MODES */
+.final-fix-title {
+  /* 1. Phông chữ chuẩn Pixel */
+  font-family: "VT323", "Minecraft", monospace !important;
+  font-size: 45px !important;
+
+  /* 2. LÀM ĐẶC RUỘT CHỮ (QUAN TRỌNG NHẤT) */
+  color: #add8e6 !important; /* Màu xanh light blue đặc */
+  -webkit-text-fill-color: #add8e6 !important; /* Ép ruột chữ phải có màu */
+  -webkit-text-stroke: 0px none !important; /* XÓA BỎ VIỀN RỖNG */
+
+  /* 3. ĐỔ BÓNG ĐEN CỨNG (GIỐNG GAME MODES) */
+  text-shadow: 3px 3px 0px #000000 !important;
+
+  /* 4. Căn chỉnh hiển thị */
+  display: block !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  line-height: 1.2 !important;
+  opacity: 1 !important;
+  filter: none !important; /* XÓA BỎ CÁC HIỆU ỨNG NHÒE/BLUR */
+  margin-bottom: 5px !important;
+}
+
+/* Fix cho dòng chữ nhỏ bên dưới không bị to theo */
+.final-fix-title + p {
+  font-size: 14px !important;
+  color: #c4b5fd !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: #c4b5fd !important;
+}

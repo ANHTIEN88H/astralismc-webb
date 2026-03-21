@@ -1,0 +1,99 @@
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* 1. IMPORT FONTS CHUẨN */
+/* ─────────────────────────────────────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=VT323&family=Outfit:wght@400;700&family=Inter:wght@400;600&family=Press+Start+2P&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* 2. RESET TOÀN CỤC - KHÔNG CHO THANH TÁC VỤ BỊ TO RA */
+/* ─────────────────────────────────────────────────────────────────────────── */
+html,
+body,
+nav,
+.navbar,
+.nav-link,
+header span {
+  font-size: 15px !important;
+  font-family: "Inter", sans-serif !important;
+  text-shadow: none !important;
+  -webkit-text-stroke: 0px !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* 3. TIÊU ĐỀ SERVER STATUS - GIỐNG HỆT GAME MODES */
+/* ─────────────────────────────────────────────────────────────────────────── */
+.final-fix-title {
+  /* Font pixel vuông vức, béo giống Game Modes */
+  font-family: "Press Start 2P", cursive !important;
+  font-size: 24px !important; /* Size này sẽ cân bằng với Game Modes */
+
+  /* Màu xanh Light Blue đặc ruột */
+  color: #add8e6 !important;
+  -webkit-text-fill-color: #add8e6 !important;
+
+  /* Bóng đổ đen cứng chuẩn Minecraft */
+  text-shadow: 4px 4px 0px #000000 !important;
+
+  /* Xóa mọi hiệu ứng rác */
+  -webkit-text-stroke: 0px none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  display: block !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0px !important;
+  line-height: 1.4 !important;
+  margin-bottom: 12px !important;
+}
+
+/* Dòng mô tả nhỏ bên dưới tiêu đề */
+.final-fix-title + p {
+  font-family: "Inter", sans-serif !important;
+  font-size: 14px !important;
+  color: #c4b5fd !important;
+  text-shadow: none !important;
+  margin-top: 4px !important;
+  opacity: 0.9;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* 4. CÁC CLASS TIÊU ĐỀ CHUNG KHÁC (CÓ THỂ DÙNG VT323 CHO GẦY HƠN) */
+/* ─────────────────────────────────────────────────────────────────────────── */
+.section-title {
+  font-family: "VT323", monospace !important;
+  font-size: 32px !important;
+  color: #add8e6 !important;
+  text-shadow: 3px 3px 0px #000000 !important;
+  text-transform: uppercase !important;
+}
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* HERO TITLE - FIX CHO TO OẠCH VÀ HOÀNH TRÁNG (image_9.png) */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+.hero-title {
+  /* 1. Dùng font Geometric Sans-serif Bold sạch sẽ (Outfit) */
+  font-family: "Outfit", sans-serif !important;
+
+  /* 2. ÉP KÍCH THƯỚC TO VẬT VÃ (Phóng to gấp 3 lần) */
+  font-size: clamp(32px, 5vw, 65px) !important; /* Size tối đa lên tới 65px */
+
+  /* 3. Độ dày bold siêu đậm để khẳng định thương hiệu */
+  font-weight: 900 !important; /* Sử dụng weight đậm nhất (Black) */
+
+  /* 4. Màu sắc: Màu xanh ngọc nhạt đặc ruột */
+  color: #add8e6 !important;
+  -webkit-text-fill-color: #add8e6 !important;
+
+  /* 5. TẠO BÓNG ĐỔ 3D SÂU VÀ DÀY (image_9.png) */
+  text-shadow:
+    3px 3px 0px #000000,
+    5px 5px 15px rgba(0, 0, 0, 0.6) !important; /* Bóng đen cứng và mờ mờ cho nổi bật */
+
+  /* 6. Căn chỉnh hiển thị */
+  -webkit-text-stroke: 0px !important;
+  display: block !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important; /* Giãn chữ nhẹ cho thoáng */
+  line-height: 1.1 !important; /* Line-height thấp cho chữ lồng vào nhau ngầu */
+  margin-bottom: 20px !important;
+  filter: none !important;
+}

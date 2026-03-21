@@ -49,19 +49,8 @@ export default function ServerStatus() {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "10px" }}
           >
-            <h1
-              style={{
-                fontFamily: '"Press Start 2P", monospace',
-                fontSize: "clamp(18px, 2.2vw, 28px)",
-                letterSpacing: "1px",
-                color: "#ffffff",
-                textShadow:
-                  "2px 2px 4px rgba(15, 7, 26, 0.95), 1px 1px 2px rgba(15, 7, 26, 0.8)",
-                margin: 0,
-              }}
-            >
-              SERVER STATUS
-            </h1>
+            {/* TIÊU ĐỀ ĐÃ ĐƯỢC GẮN CLASS ĐỂ ĂN THEO CSS PHÓNG TO */}
+            <h2 className="final-fix-title">SERVER STATUS</h2>
             <p
               style={{
                 color: "#c4b5fd",

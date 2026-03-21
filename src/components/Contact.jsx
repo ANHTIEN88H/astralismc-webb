@@ -2,23 +2,56 @@ import { useState } from "react";
 
 export default function Contact({ onToast }) {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    ingame: "",
+    email: "",
+    message: "",
+  });
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim()) {
-      onToast("Vui lòng nhập tên và email.");
-      return;
+    const WEBHOOK_URL =
+      "https://discord.com/api/webhooks/1485033160868626552/f-CwvU3TO-JzFhTPyzMye4yg_naA2KWmGh0xsCXXvFoKRK6hCOBzAW2YaSrwxKPxhQOg";
+
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          // Dòng này sẽ tag sếp ở ngoài bảng Embed để Discord nổ thông báo
+          content: "<@1359147263632609460> 🔔 CÓ YÊU CẦU HỖ TRỢ MỚI!",
+
+          embeds: [
+            {
+              title: "📩 LIÊN HỆ MỚI TỪ WEBSITE",
+              color: 0xadd8e6,
+              fields: [
+                {
+                  name: "👤 Ingame",
+                  value: formData.ingame || "Trống",
+                  inline: true,
+                },
+                {
+                  name: "📧 Email",
+                  value: formData.email || "Trống",
+                  inline: true,
+                },
+                { name: "📝 Nội dung", value: formData.message || "Trống" },
+              ],
+              timestamp: new Date(),
+            },
+          ],
+        }),
+      });
+      alert("✅ Đã gửi hỗ trợ thành công!");
+      setFormData({ ingame: "", email: "", message: "" }); // Gửi xong xóa trắng ô nhập
+    } catch (err) {
+      alert("❌ Lỗi gửi tin, sếp check lại link Webhook nhé!");
     }
-    if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) {
-      onToast("Email không hợp lệ.");
-      return;
-    }
-    onToast("Đã gửi yêu cầu (demo, không gửi backend).");
-    setForm({ name: "", email: "", message: "" });
   };
 
   return (
@@ -40,8 +73,10 @@ export default function Contact({ onToast }) {
               <input
                 type="text"
                 name="name"
-                value={form.name}
-                onChange={handleChange}
+                value={formData.ingame}
+                onChange={(e) =>
+                  setFormData({ ...formData, ingame: e.target.value })
+                }
                 className="w-full rounded border border-slate-600 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 outline-none ring-emerald-500/50 focus:ring"
                 placeholder="VD: SteveVN"
               />
@@ -53,8 +88,10 @@ export default function Contact({ onToast }) {
               <input
                 type="email"
                 name="email"
-                value={form.email}
-                onChange={handleChange}
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 className="w-full rounded border border-slate-600 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 outline-none ring-emerald-500/50 focus:ring"
                 placeholder="you@example.com"
               />
@@ -65,8 +102,10 @@ export default function Contact({ onToast }) {
               </label>
               <textarea
                 name="message"
-                value={form.message}
-                onChange={handleChange}
+                value={formData.message}
+                onChange={(e) =>
+                  setFormData({ ...formData, message: e.target.value })
+                }
                 rows={4}
                 className="w-full resize-none rounded border border-slate-600 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 outline-none ring-emerald-500/50 focus:ring"
                 placeholder="Mô tả vấn đề hoặc ý kiến góp ý..."
