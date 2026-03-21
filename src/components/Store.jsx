@@ -61,8 +61,10 @@ export default function Store() {
   return (
     <section id="store">
       <div className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="pixel-title text-sm text-[#ADD8E6]">STORE • DONATE</h2>
-        <p className="mt-1 text-xs text-slate-300 md:text-sm">
+        <h2 className="section-title text-cyan-200 minecraft-title-shadow">
+          STORE • DONATE
+        </h2>
+        <p className="mt-2 text-sm text-gray-300 md:text-base">
           Ủng hộ server và nhận rank đẹp, không phải pay‑to‑win.
         </p>
 

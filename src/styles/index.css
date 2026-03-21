@@ -20,12 +20,85 @@ body {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── */
+/* READABILITY: MINECRAFT TEXT SHADOW - Game-style strong shadow effect */
+/* ─────────────────────────────────────────────────────────────────────────── */
+.minecraft-text-shadow {
+  text-shadow:
+    2px 2px 4px rgba(15, 7, 26, 0.95),
+    1px 1px 2px rgba(15, 7, 26, 0.8);
+}
+
+/* Hard drop shadow for Minecraft-style titles - sắc nét, nổi bật hơn */
+.minecraft-title-shadow {
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.8);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* TYPOGRAPHY FIXES - Navigation, GameModes, Rules */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* Navigation links - Tăng kích thước và độ rõ */
+.nav-link {
+  @apply text-sm md:text-base font-medium text-slate-300 transition-colors hover:text-cyan-200;
+  font-family: "VT323", "Courier New", monospace;
+  letter-spacing: 0.5px;
+}
+
+/* Game modes card title - Sử dụng pixel font */
+.game-mode-title {
+  font-family: "VT323", "Courier New", monospace;
+  @apply text-lg md:text-xl font-bold text-cyan-100;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+/* Game modes card description - Pixel/monospace font, tăng kích thước */
+.game-mode-description {
+  font-family: "VT323", "Courier New", monospace;
+  @apply text-sm md:text-base text-gray-300;
+  letter-spacing: 0px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* Rules section title - Pixel font */
+.rules-title {
+  font-family: "VT323", "Courier New", monospace;
+  @apply text-xl md:text-2xl font-bold text-cyan-200;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Rules section subtitle */
+.rules-subtitle {
+  @apply text-sm md:text-base text-gray-300 mt-2;
+  line-height: 1.6;
+}
+
+/* Rules subsection title */
+.rules-section-title {
+  font-family: "VT323", "Courier New", monospace;
+  @apply text-lg font-bold text-cyan-200 tracking-wide;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+
+/* Rules list items - Tăng kích thước và sử dụng pixel font */
+.rules-item {
+  font-family: "VT323", "Courier New", monospace;
+  @apply text-base md:text-lg text-slate-100 leading-relaxed;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
 /* MINECRAFT-STYLE PANELS & COMPONENTS */
 /* ─────────────────────────────────────────────────────────────────────────── */
 
 /* Minecraft-style border panels */
 .panel {
-  @apply rounded-xl border border-slate-700/70 backdrop-blur;
+  @apply rounded-xl border border-slate-700/50 bg-slate-900/20 backdrop-blur-md;
 }
 
 /* Glow button */

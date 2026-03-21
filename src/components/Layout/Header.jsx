@@ -11,14 +11,14 @@ const navItems = [
 
 export default function Header({ onPlayClick }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-800/70 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-purple-700/30 bg-purple-500/70 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className="flex items-center gap-3"
         >
-          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-md bg-mcPanel/80 shadow-glowSoft">
+          <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-md bg-white/20 shadow-glowSoft">
             {/* /public/assets/astralis-logo.png */}
             <img
               src="/assets/astralis-logo.png"
@@ -29,22 +29,24 @@ export default function Header({ onPlayClick }) {
             />
           </div>
           <div>
-            <div className="pixel-title text-xs text-[#ADD8E6]">AstralisMC</div>
-            <p className="text-[11px] text-slate-200">
+            <div className="pixel-title text-sm md:text-base text-cyan-200 font-bold">
+              ASTRALISMC
+            </div>
+            <p className="text-xs md:text-sm text-cyan-100/80">
               Survival • Skyblock • Mmorpg
             </p>
           </div>
         </motion.div>
 
-        <nav className="hidden items-center gap-6 text-xs text-slate-300 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="relative font-medium text-slate-300 transition-colors hover:text-[#ADD8E6]"
+              className="relative font-medium text-sm md:text-base text-cyan-200 hover:text-cyan-100 transition-colors hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
             >
               <span>{item.label}</span>
-              <span className="absolute -bottom-1 left-0 h-[2px] w-0 rounded bg-gradient-to-r from-[#ADD8E6] to-cyan-400 transition-all group-hover:w-full" />
+              <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-cyan-300 transition-all duration-300 hover:w-full" />
             </a>
           ))}
         </nav>

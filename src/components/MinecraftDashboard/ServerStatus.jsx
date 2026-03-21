@@ -54,8 +54,9 @@ export default function ServerStatus() {
                 fontFamily: '"Press Start 2P", monospace',
                 fontSize: "clamp(18px, 2.2vw, 28px)",
                 letterSpacing: "1px",
-                color: "rgba(255,255,255,.92)",
-                textShadow: "0 0 20px rgba(255,79,216,.25)",
+                color: "#ffffff",
+                textShadow:
+                  "2px 2px 4px rgba(15, 7, 26, 0.95), 1px 1px 2px rgba(15, 7, 26, 0.8)",
                 margin: 0,
               }}
             >
@@ -63,10 +64,11 @@ export default function ServerStatus() {
             </h1>
             <p
               style={{
-                color: "rgba(255,255,255,.68)",
-                fontSize: "14px",
+                color: "#c4b5fd",
+                fontSize: "15px",
                 lineHeight: "1.35",
                 margin: 0,
+                fontWeight: "500",
               }}
             >
               Kiểm tra trạng thái server và thông tin phiên bản.
@@ -81,28 +83,28 @@ export default function ServerStatus() {
               gap: "10px",
               padding: "10px 14px",
               borderRadius: "12px",
-              border: "1px solid rgba(255,255,255,.14)",
-              background: "rgba(20, 10, 38, .40)",
-              color: "rgba(255,255,255,.88)",
+              border: "1px solid rgba(236, 72, 153, 0.5)",
+              background: "rgba(236, 72, 153, 0.25)",
+              color: "rgba(255,255,255,.95)",
               backdropFilter: "blur(10px)",
               cursor: "pointer",
               userSelect: "none",
               transition:
                 "transform .15s ease, border-color .15s ease, background .15s ease",
-              boxShadow: "0 12px 34px rgba(0,0,0,.22)",
+              boxShadow: "0 8px 24px rgba(236, 72, 153, 0.2)",
               whiteSpace: "nowrap",
               fontWeight: "600",
               fontSize: "13px",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-1px)";
-              e.currentTarget.style.borderColor = "rgba(255,79,216,.35)";
-              e.currentTarget.style.background = "rgba(20, 10, 38, .50)";
+              e.currentTarget.style.borderColor = "rgba(236, 72, 153, 0.8)";
+              e.currentTarget.style.background = "rgba(236, 72, 153, 0.35)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0px)";
-              e.currentTarget.style.borderColor = "rgba(255,255,255,.14)";
-              e.currentTarget.style.background = "rgba(20, 10, 38, .40)";
+              e.currentTarget.style.borderColor = "rgba(236, 72, 153, 0.5)";
+              e.currentTarget.style.background = "rgba(236, 72, 153, 0.25)";
             }}
             aria-label="Copy IP"
             type="button"
@@ -187,11 +189,12 @@ export default function ServerStatus() {
                     display: "flex",
                     alignItems: "center",
                     gap: "10px",
-                    color: "rgba(255,255,255,0.72)",
+                    color: "#c4b5fd",
                     fontSize: "12px",
                     marginBottom: "10px",
                     position: "relative",
                     zIndex: 2,
+                    fontWeight: "500",
                   }}
                 >
                   <svg
@@ -224,8 +227,8 @@ export default function ServerStatus() {
                     fontWeight: 800,
                     letterSpacing: "0.2px",
                     margin: "0 0 6px 0",
-                    fontSize: "14px",
-                    color: "rgba(255,255,255,0.95)",
+                    fontSize: "17px",
+                    color: "#ffffff",
                     textShadow: "0 0 15px rgba(255,79,216,0.2)",
                     position: "relative",
                     zIndex: 2,
@@ -236,10 +239,11 @@ export default function ServerStatus() {
                 <p
                   style={{
                     margin: 0,
-                    color: "rgba(255,255,255,0.62)",
+                    color: "#a78bfa",
                     fontSize: "12px",
                     position: "relative",
                     zIndex: 2,
+                    fontWeight: "500",
                   }}
                 >
                   Phiên bản: 1.21 → 1.21.10
@@ -253,11 +257,12 @@ export default function ServerStatus() {
                     display: "flex",
                     alignItems: "center",
                     gap: "10px",
-                    color: "rgba(255,255,255,0.72)",
+                    color: "#c4b5fd",
                     fontSize: "12px",
                     marginBottom: "10px",
                     position: "relative",
                     zIndex: 2,
+                    fontWeight: "500",
                   }}
                 >
                   <svg
@@ -291,11 +296,12 @@ export default function ServerStatus() {
                     fontWeight: 800,
                     letterSpacing: "0.2px",
                     margin: "0 0 6px 0",
-                    fontSize: "14px",
-                    color: "rgba(255,255,255,0.95)",
+                    fontSize: "17px",
+                    color: "#ffffff",
                     textShadow: "0 0 15px rgba(255,79,216,0.2)",
                     position: "relative",
                     zIndex: 2,
+                    wordBreak: "break-word",
                   }}
                 >
                   astralismc.xyz (1.21+)
@@ -303,10 +309,11 @@ export default function ServerStatus() {
                 <p
                   style={{
                     margin: 0,
-                    color: "rgba(255,255,255,0.62)",
+                    color: "#a78bfa",
                     fontSize: "12px",
                     position: "relative",
                     zIndex: 2,
+                    fontWeight: "500",
                   }}
                 >
                   Port: 19132

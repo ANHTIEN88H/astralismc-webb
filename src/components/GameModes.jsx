@@ -27,12 +27,14 @@ export default function GameModes() {
   return (
     <section id="modes">
       <div className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="pixel-title text-sm text-[#ADD8E6]">GAME MODES</h2>
-        <p className="mt-1 text-xs text-slate-300 md:text-sm">
+        <h2 className="section-title text-cyan-200 minecraft-title-shadow">
+          GAME MODES
+        </h2>
+        <p className="mt-2 text-sm text-gray-300 md:text-base">
           Nhiều chế độ chơi để bạn không bao giờ chán.
         </p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
           {modes.map((mode, idx) => (
             <motion.div
               key={mode.name}
@@ -40,16 +42,18 @@ export default function GameModes() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05 }}
-              className="panel relative overflow-hidden p-4"
+              className="panel relative overflow-hidden p-5 hover:border-cyan-400/50 transition-colors"
             >
               <div
-                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${mode.color} opacity-40`}
+                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${mode.color} opacity-15`}
               />
-              <div className="relative">
-                <h3 className="text-sm font-semibold text-slate-100">
+              <div className="relative space-y-2">
+                <h3 className="game-mode-title text-lg text-cyan-100">
                   {mode.name}
                 </h3>
-                <p className="mt-2 text-xs text-slate-300">{mode.desc}</p>
+                <p className="game-mode-description text-sm text-slate-300 leading-relaxed">
+                  {mode.desc}
+                </p>
               </div>
             </motion.div>
           ))}

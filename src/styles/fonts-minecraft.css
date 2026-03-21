@@ -40,6 +40,11 @@
   --font-body:
     "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
+
+  /* TEXT COLOR - Tối hơn để dễ đọc trên nền kính mờ (Glassmorphism) */
+  --text-primary: #2d2040; /* Tím than đậm cho nội dung chính */
+  --text-secondary: #4a4655; /* Xám đậm ánh tím cho nội dung phụ */
+  --text-light: #6b6673; /* Xám nhạt cho nhãn nhỏ */
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── */
@@ -123,18 +128,19 @@ button {
 /* Mô tả ngắn bên dưới tiêu đề */
 .status-description {
   font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 14px;
+  font-weight: 500;
+  font-size: 15px;
   line-height: 1.35;
-  opacity: 0.68;
+  color: var(--text-secondary);
 }
 
 /* Card tiêu đề (Status, Java IP, Bedrock IP, v.v.) */
 .card-label {
   font-family: var(--font-heading-md);
-  font-weight: 400;
-  font-size: 13px;
+  font-weight: 500;
+  font-size: 14px;
   letter-spacing: 0.3px;
+  color: var(--text-light);
 }
 
 /* Nội dung chính của card (Số liệu, phiên bản, IPs) */
@@ -142,8 +148,9 @@ button {
 .card-content {
   font-family: var(--font-body-mono);
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.2px;
+  color: var(--text-primary);
 }
 
 /* Dòng trạng thái (OFFLINE, ONLINE 24/7) */
@@ -159,7 +166,7 @@ button {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 12px;
-  opacity: 0.55;
+  color: var(--text-light);
 }
 
 /* Thông báo lỗi */
@@ -181,10 +188,10 @@ button {
 /* Section mô tả */
 .section-description {
   font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 13px;
+  font-weight: 500;
+  font-size: 14px;
   line-height: 1.4;
-  opacity: 0.85;
+  color: var(--text-secondary);
 }
 
 /* Card title bên trong mỗi section */
@@ -198,6 +205,7 @@ button {
 /* Card description */
 .card-description {
   font-family: var(--font-body);
+  color: var(--text-secondary);
   font-weight: 400;
   font-size: 12px;
   line-height: 1.35;

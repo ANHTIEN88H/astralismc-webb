@@ -60,10 +60,13 @@ export default function Rules() {
           viewport={{ once: true }}
           transition={{ duration: 0.25 }}
         >
-          <h2 className="font-sans text-sm font-semibold text-[#ADD8E6] tracking-wide">
+          <h2
+            className="rules-title"
+            title="Nội quy chung tại AstralisMC Network"
+          >
             NỘI QUY CHUNG TẠI ASTRALISMC NETWORK
           </h2>
-          <p className="mt-1 text-xs text-slate-300 md:text-sm">
+          <p className="rules-subtitle">
             Quy định được áp dụng cho cả Discord và máy chủ để giữ môi trường
             chơi game văn minh.
           </p>
@@ -71,12 +74,10 @@ export default function Rules() {
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           <div className="panel p-4">
-            <h3 className="font-sans text-[11px] font-semibold text-[#ADD8E6] tracking-wide">
-              Trên Discord
-            </h3>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 text-[11px] text-slate-200">
+            <h3 className="rules-section-title">Trên Discord</h3>
+            <ol className="mt-4 list-decimal space-y-3 pl-6">
               {discordRules.map((r) => (
-                <li key={r.n} className="leading-relaxed">
+                <li key={r.n} className="rules-item">
                   {r.text}
                 </li>
               ))}
@@ -84,12 +85,10 @@ export default function Rules() {
           </div>
 
           <div className="panel p-4">
-            <h3 className="font-sans text-[11px] font-semibold text-[#ADD8E6] tracking-wide">
-              Trong máy chủ
-            </h3>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 text-[11px] text-slate-200">
+            <h3 className="rules-section-title">Trong máy chủ</h3>
+            <ol className="mt-4 list-decimal space-y-3 pl-6">
               {serverRules.map((r) => (
-                <li key={r.n} className="leading-relaxed">
+                <li key={r.n} className="rules-item">
                   {r.text}
                 </li>
               ))}
@@ -97,7 +96,7 @@ export default function Rules() {
           </div>
         </div>
 
-        <p className="mt-6 text-center text-[11px] text-slate-300">
+        <p className="mt-8 text-center text-lg md:text-xl text-slate-300 leading-relaxed">
           Mình rất mong mọi người sẽ tuân thủ tốt và cùng tạo ra một sân chơi
           lành mạnh nhé ♪ 🩷
         </p>

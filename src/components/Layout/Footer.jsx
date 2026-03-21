@@ -3,8 +3,9 @@ export default function Footer() {
     <footer className="border-t border-slate-800/70">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-4 text-xs text-slate-400 md:flex-row">
         <p>
-          © {new Date().getFullYear()} AstralisMC Network • Not an official
-          Minecraft product.
+          © {new Date().getFullYear()}{" "}
+          <span className="font-bold text-slate-200">AstralisMC</span> Network •
+          Not an official Minecraft product.
         </p>
         <div className="flex items-center gap-4">
           <a href="#hero" className="hover:text-[#ADD8E6]">

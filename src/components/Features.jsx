@@ -25,14 +25,16 @@ const features = [
 
 export default function Features() {
   return (
-    <section>
+    <section id="features">
       <div className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="pixel-title text-sm text-[#ADD8E6]">FEATURES</h2>
-        <p className="mt-1 text-xs text-slate-300 md:text-sm">
+        <h2 className="section-title text-cyan-200 minecraft-title-shadow">
+          FEATURES
+        </h2>
+        <p className="mt-2 text-sm text-gray-300 md:text-base">
           Hệ thống được thiết kế cho cảm giác chơi lâu dài, mượt và công bằng.
         </p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-4">
+        <div className="mt-8 grid gap-4 md:grid-cols-4">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
@@ -40,15 +42,19 @@ export default function Features() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="panel flex flex-col items-start gap-2 p-4"
+              className="panel flex flex-col gap-3 p-5 hover:border-cyan-400/50 transition-colors"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-slate-900/80 text-lg">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-500/20 text-2xl flex-shrink-0">
                 {f.icon}
               </div>
-              <h3 className="text-xs font-semibold text-slate-100">
-                {f.title}
-              </h3>
-              <p className="text-[11px] text-slate-300">{f.text}</p>
+              <div>
+                <h3 className="game-mode-title text-base text-cyan-100 mb-2">
+                  {f.title}
+                </h3>
+                <p className="game-mode-description text-xs md:text-sm text-slate-300 leading-relaxed">
+                  {f.text}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
