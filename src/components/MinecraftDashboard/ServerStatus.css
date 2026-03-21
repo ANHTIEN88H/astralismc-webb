@@ -1,0 +1,398 @@
+/* --- CSS VARIABLES cho dự án (để dễ bo góc, đổi màu) --- */
+:root {
+  --neonPink: #ff4fd8;
+  --neonViolet: #a96bff;
+  --neonCyan: #6ae4ff;
+  --muted: rgba(255, 255, 255, 0.68);
+  --text: rgba(255, 255, 255, 0.92);
+  --radius-lg: 18px;
+  --radius-md: 14px;
+}
+
+/* --- CHỖ NÀY ĐÃ FIX NỀN! --- */
+/* Nền ảnh panorama */
+.bg-mc-panorama {
+  position: relative;
+  min-height: 100vh;
+  background-image: url("/assets/minecraft-landscape.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Gradient mờ ảo giống image_4 */
+.bg-gradient-neon {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      900px 500px at 15% 10%,
+      rgba(255, 79, 216, 0.4),
+      transparent 60%
+    ),
+    radial-gradient(
+      850px 520px at 85% 18%,
+      rgba(169, 107, 255, 0.38),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(214, 115, 255, 0.3) 0%,
+      rgba(125, 82, 255, 0.25) 55%,
+      rgba(25, 10, 45, 0.55) 100%
+    );
+  animation: gradientShift 15s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes gradientShift {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* --- KEYFRAMES: animated blocks --- */
+@keyframes floatUp {
+  0% {
+    transform: translate3d(0, 18vh, 0) scale(var(--scale));
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--op);
+  }
+  80% {
+    opacity: var(--op);
+  }
+  100% {
+    transform: translate3d(0, -115vh, 0) scale(var(--scale));
+    opacity: 0;
+  }
+}
+
+/* Class định hình khối bay (Glass style) */
+.block-floating {
+  position: absolute;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 10px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0)),
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255, 79, 216, 0.22),
+      transparent 55%
+    ),
+    rgba(25, 12, 45, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    0 0 18px rgba(169, 107, 255, 0.1);
+  transform: translateZ(0);
+  animation: floatUp var(--dur) linear infinite;
+}
+
+/* --- Hiệu ứng Neon cho Text --- */
+.neon-glow-text {
+  color: var(--neonPink);
+  text-shadow: 0 0 20px rgba(255, 79, 216, 0.25);
+}
+
+/* --- Kính mờ Neon (class cho card trạng thái hồng) --- */
+.card-glass.status-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(
+      700px 220px at 10% 15%,
+      rgba(255, 79, 216, 0.25),
+      transparent 65%
+    ),
+    rgba(255, 40, 190, 0.16); /* Màu hồng nhạt mờ */
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.35),
+    0 0 26px rgba(255, 79, 216, 0.18),
+    0 0 40px rgba(169, 107, 255, 0.12); /* Hiệu ứng Neon Hào quang */
+  backdrop-filter: blur(12px); /* Hiệu ứng kính mờ (glassmorphism) */
+  padding: 24px;
+  min-height: 170px;
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-glass.status-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(255, 79, 216, 0.3);
+  border-color: rgba(255, 79, 216, 0.6);
+}
+
+.status-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.status-top .label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.status-top .auto {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.status-main {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.92);
+  animation: glowText 2s ease-in-out infinite;
+}
+
+@keyframes glowText {
+  0%,
+  100% {
+    text-shadow: 0 0 20px rgba(255, 79, 216, 0.3);
+    color: rgba(255, 255, 255, 0.92);
+  }
+  50% {
+    text-shadow:
+      0 0 30px rgba(255, 79, 216, 0.6),
+      0 0 40px rgba(169, 107, 255, 0.4);
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #ff3b3b;
+  box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.55);
+  animation: pulseDot 1.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulseDot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(255, 59, 59, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.1);
+  }
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 120, 120, 0.95);
+  font-weight: 700;
+  font-size: 13px;
+  animation: fadeIn 0.6s ease-out 0.3s both;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Kính mờ Neon (class cho card nhóm IP bên phải) */
+.group-card-glass {
+  background: rgba(255, 40, 190, 0.1); /* Màu hồng cực mờ */
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(12px);
+  padding: 16px;
+  position: relative;
+  transition: all 0.3s ease;
+  animation: slideIn 0.6s ease-out 0.1s both;
+}
+
+.group-card-glass:hover {
+  border-color: rgba(169, 107, 255, 0.6);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(169, 107, 255, 0.2);
+}
+
+/* Mini card đen mờ Neon bên trong */
+.mini-card-dark {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 10, 28, 0.82); /* Màu đen mờ để nhìn xuyên */
+  backdrop-filter: blur(12px); /* Kính mờ */
+  box-shadow:
+    0 16px 45px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(169, 107, 255, 0.1);
+  padding: 14px;
+  min-height: 92px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: slideIn 0.6s ease-out 0.2s both;
+}
+
+.mini-card-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 79, 216, 0.15) 50%,
+    transparent 100%
+  );
+  animation: miniShine 2.5s infinite;
+  opacity: 0;
+}
+
+@keyframes miniShine {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+.mini-card-dark:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(169, 107, 255, 0.25);
+  border-color: rgba(169, 107, 255, 0.5);
+}
+
+.mini-card-dark:hover::before {
+  opacity: 1;
+}
+
+/* Players Section */
+.players {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(169, 107, 255, 0.2);
+  background: linear-gradient(
+    135deg,
+    rgba(16, 10, 28, 0.7) 0%,
+    rgba(30, 10, 50, 0.5) 100%
+  );
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.25),
+    0 0 15px rgba(106, 228, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: slideIn 0.6s ease-out 0.3s both;
+}
+
+.players:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 45px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(106, 228, 255, 0.2);
+  border-color: rgba(106, 228, 255, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* --- Button Copy IP: Glowing Neon --- */
+.btn-motto-glow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(20, 10, 38, 0.4);
+  color: var(--text);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+}
+.btn-motto-glow:hover {
+  border-color: rgba(255, 79, 216, 0.35);
+  background: rgba(20, 10, 38, 0.5);
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.22),
+    0 0 20px rgba(255, 79, 216, 0.15);
+}
+
+/* --- Toast Notification: Hào quang mờ ảo --- */
+.toast-motto {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: rgba(16, 10, 28, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 13px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+.toast-motto.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}

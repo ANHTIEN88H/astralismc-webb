@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-800/70 bg-mcBg/90">
+    <footer className="border-t border-slate-800/70">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-4 text-xs text-slate-400 md:flex-row">
         <p>
           © {new Date().getFullYear()} AstralisMC Network • Not an official

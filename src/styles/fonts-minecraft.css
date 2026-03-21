@@ -1,0 +1,357 @@
+/**
+ * ═══════════════════════════════════════════════════════════════════════════
+ * MINECRAFT SERVER DASHBOARD - FONT SYSTEM
+ * ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * Hệ thống font chữ Minecraft-style cho toàn bộ trang web.
+ * Đảm bảo tính estetika voxel/pixelart + dễ đọc.
+ * 
+ * FONTS ĐƯỢC SỬ DỤNG:
+ * 1. VT323 (Google Font) - Font pixel retro cho tiêu đề & labels
+ * 2. JetBrains Mono (Google Font) - Font monospace sạch cho nội dung kỹ thuật
+ * 3. Plus Jakarta Sans (Fallback) - Font modern cho nội dung phụ
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 1: IMPORT FONTS TỪ GOOGLE FONTS */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 2: CSS VARIABLES CHO FONT FAMILY */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* Tiêu đề lớn & Nút (Pixel Art Style) */
+  --font-heading-xl: "Press Start 2P", "VT323", monospace;
+
+  /* Tiêu đề vừa & Card titles (Pixel nhưng tối ưu cho kích thước nhỏ) */
+  --font-heading-md: "VT323", "Courier New", monospace;
+
+  /* Nội dung chính & Số liệu kỹ thuật (Monospace sạch) */
+  --font-body-mono: "JetBrains Mono", "Courier New", monospace;
+
+  /* Mô tả & Văn bản phụ (Sans-serif sạch, Minecraft-style) */
+  --font-body:
+    "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 3: ÁP DỤNG FONT CHO CÁC YẾU TỐ HTML */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* HTML & Body: Font mặc định */
+html,
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Heading cấp 1 (h1): Tiêu đề lớn như "SERVER STATUS" */
+h1 {
+  font-family: var(--font-heading-xl);
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+/* Heading cấp 2 (h2): Tiêu đề phần */
+h2 {
+  font-family: var(--font-heading-md);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* Heading cấp 3 & các không sử dụng h2 */
+h3 {
+  font-family: var(--font-heading-md);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading-md);
+  font-weight: 600;
+}
+
+/* Nút (button): Tiêu đề nhỏ, pixel style */
+button {
+  font-family: var(--font-heading-md);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 4: ÁP DỤNG FONT CHO CÁC CLASS TAILWIND & CUSTOM */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* .pixel-title: Class có sẵn trong dự án cho tiêu đề pixel */
+.pixel-title {
+  font-family: var(--font-heading-md);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* .btn-glow: Button đặc biệt */
+.btn-glow {
+  font-family: var(--font-heading-md);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 5: MINECRAFT DASHBOARD COMPONENTS - FONT ĐẶC THÀNH */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* Tiêu đề "SERVER STATUS" */
+.server-status-title {
+  font-family: var(--font-heading-xl);
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: clamp(18px, 2.2vw, 28px);
+}
+
+/* Mô tả ngắn bên dưới tiêu đề */
+.status-description {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.35;
+  opacity: 0.68;
+}
+
+/* Card tiêu đề (Status, Java IP, Bedrock IP, v.v.) */
+.card-label {
+  font-family: var(--font-heading-md);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+/* Nội dung chính của card (Số liệu, phiên bản, IPs) */
+.card-value,
+.card-content {
+  font-family: var(--font-body-mono);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+}
+
+/* Dòng trạng thái (OFFLINE, ONLINE 24/7) */
+.status-line {
+  font-family: var(--font-heading-md);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+/* Tên "Auto-update" / "Tự động cập nhật mỗi 30 giây" */
+.auto-update-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  opacity: 0.55;
+}
+
+/* Thông báo lỗi */
+.error-message {
+  font-family: var(--font-body-mono);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* Section tiêu đề lớn (GAME MODES, FEATURES, STORE, v.v.) */
+.section-title {
+  font-family: var(--font-heading-md);
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Section mô tả */
+.section-description {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+/* Card title bên trong mỗi section */
+.card-title {
+  font-family: var(--font-heading-md);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+/* Card description */
+.card-description {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.35;
+  opacity: 0.8;
+}
+
+/* Toast notification */
+.toast {
+  font-family: var(--font-body-mono);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 6: TỐI ƯU HÓA FONT CHO KÍCH THƯỚC NHỎ (VT323) */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* VT323 ở kích thước nhỏ có thể trông "bế". Sử dụng text-rendering để cải thiện */
+*:where(.pixel-title, h2, h3, .card-label, .auto-update-label) {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Monospace: Đảm bảo các ký tự canh chỉnh tốt */
+*:where(.card-value, .card-content, .status-line, .error-message, .toast) {
+  text-rendering: optimizeSpeed;
+  font-feature-settings: "kern" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 7: RESPONSIVE - ĐIỀU CHỈNH FONT SIZE THEO SCREEN SIZE */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .server-status-title {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+
+  .section-title {
+    font-size: 12px;
+  }
+
+  .card-title {
+    font-size: 12px;
+  }
+
+  .section-description {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .server-status-title {
+    font-size: clamp(14px, 5vw, 18px);
+    letter-spacing: 0.5px;
+  }
+
+  .card-label {
+    font-size: 11px;
+  }
+
+  .card-value {
+    font-size: 12px;
+  }
+
+  .status-line {
+    font-size: 16px;
+  }
+
+  .auto-update-label {
+    font-size: 10px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 8: FALLBACK FONTS CHO BROWSER KHÔNG HỖ TRỢ GOOGLE FONTS */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+@supports not (font-family: var(--font-heading-md)) {
+  h1,
+  h2,
+  h3,
+  .pixel-title,
+  .btn-glow,
+  .section-title {
+    font-family: "Courier New", monospace;
+  }
+
+  body,
+  .card-description,
+  .section-description {
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  }
+
+  .card-value,
+  .card-content,
+  .status-line,
+  .toast {
+    font-family: "Courier New", monospace;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* STEP 9: KIỂM SOÁT HIỂN THỊ FONT (FONT-LOADING) */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
+/* Hiển thị font ngay khi có (không chờ tải xong) */
+@supports (font-display: swap) {
+  @font-face {
+    font-family: "VT323";
+    src: url("https://fonts.gstatic.com/s/vt323/v17/sMz3-4SPmQzDNnz3Yj5qw5VWDQkCb9I8Zs_CxVN-CgVAD8aXdvvgIaA.ttf")
+      format("truetype");
+    font-display: swap;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* HƯỚNG DẪN TÍCH HỢP */
+/* ═══════════════════════════════════════════════════════════════════════════
+ * 
+ * 1. THÊM VÀO index.html:
+ *    Thêm dòng này trong thẻ <head> TRƯỚC các stylesheet khác:
+ * 
+ *    <link rel="stylesheet" href="/src/styles/fonts-minecraft.css">
+ * 
+ * 2. UPDATE tailwind.config.cjs:
+ *    Cập nhật fontFamily trong extend/theme của Tailwind:
+ * 
+ *    fontFamily: {
+ *      pixel: ['var(--font-heading-md)', 'monospace'],
+ *      heading: ['var(--font-heading-xl)', 'monospace'],
+ *      mono: ['var(--font-body-mono)', 'monospace'],
+ *      sans: ['var(--font-body)', 'sans-serif'],
+ *    }
+ * 
+ * 3. SỬ DỤNG CSS CLASSES:
+ *    Thay vì inline styles, sử dụng classes đã định nghĩa:
+ * 
+ *    className="server-status-title"
+ *    className="card-label"
+ *    className="card-value"
+ *    className="status-line"
+ *    className="section-title"
+ * 
+ * 4. TRONG REACT COMPONENTS:
+ *    Áp dụng className vào các thẻ:
+ * 
+ *    <h1 className="server-status-title">SERVER STATUS</h1>
+ *    <p className="card-value">astralismc.xyz (1.21+)</p>
+ * 
+ * 5. FONT FALLBACK:
+ *    Các font sẽ tự động fallback sang hệ thống nếu Google Fonts không tải được.
+ * 
+ * ═════════════════════════════════════════════════════════════════════════
+ */

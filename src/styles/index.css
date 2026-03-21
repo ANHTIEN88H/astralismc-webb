@@ -2,14 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* GLOBAL BASE STYLES */
+/* ─────────────────────────────────────────────────────────────────────────── */
+
 html,
 body {
   scroll-behavior: smooth;
+  font-family:
+    "Plus Jakarta Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ─────────────────────────────────────────────────────────────────────────── */
+/* MINECRAFT-STYLE PANELS & COMPONENTS */
+/* ─────────────────────────────────────────────────────────────────────────── */
 
 /* Minecraft-style border panels */
 .panel {
-  @apply rounded-xl border border-slate-700/70 bg-mcPanel backdrop-blur;
+  @apply rounded-xl border border-slate-700/70 backdrop-blur;
 }
 
 /* Glow button */

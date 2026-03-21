@@ -22,7 +22,7 @@ export default function Contact({ onToast }) {
   };
 
   return (
-    <section id="contact" className="border-t border-slate-800/80 bg-mcBg/95">
+    <section id="contact" className="border-t border-slate-800/80">
       <div className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="pixel-title text-sm text-[#ADD8E6]">CONTACT</h2>
         <p className="mt-1 text-xs text-slate-300 md:text-sm">

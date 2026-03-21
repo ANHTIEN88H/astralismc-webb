@@ -15,7 +15,7 @@ export default function Hero({ onCopyIp, onJoinDiscord }) {
       }}
     >
       {/* Lớp phủ để chữ đọc rõ hơn trên ảnh nền */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-mcBg/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/70" />
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-10 px-4 py-16 md:flex-row md:py-20">
         <div className="flex-1 space-y-6">

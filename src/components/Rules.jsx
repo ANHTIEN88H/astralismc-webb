@@ -52,7 +52,7 @@ const serverRules = [
 
 export default function Rules() {
   return (
-    <section id="rules" className="border-t border-slate-800/80 bg-mcBg/95">
+    <section id="rules" className="border-t border-slate-800/80">
       <div className="mx-auto max-w-6xl px-4 py-10">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

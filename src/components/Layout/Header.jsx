@@ -11,7 +11,7 @@ const navItems = [
 
 export default function Header({ onPlayClick }) {
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-800/70 bg-mcBg/80 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-slate-800/70 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <motion.div
           initial={{ y: -20, opacity: 0 }}

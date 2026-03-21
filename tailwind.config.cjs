@@ -3,8 +3,22 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        pixel: ['"Press Start 2P"', "system-ui"],
-        sans: ['"Inter"', "system-ui", "sans-serif"],
+        /* Pixel Art - Tiêu đề lớn */
+        pixel: ['"Press Start 2P"', '"VT323"', "monospace"],
+
+        /* Minecraft Heading - Vừa phải (Card titles, subtitles) */
+        minecraft: ['"VT323"', '"Courier New"', "monospace"],
+
+        /* Monospace - Nội dung kỹ thuật (IPs, versions) */
+        mono: ['"JetBrains Mono"', '"Courier New"', "monospace"],
+
+        /* Sans - Body text (Mô tả, nội dung phụ) */
+        sans: [
+          '"Plus Jakarta Sans"',
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "sans-serif",
+        ],
       },
       colors: {
         mcBg: "#bb91bf",

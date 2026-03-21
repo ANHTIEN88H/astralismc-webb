@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./styles/index.css";
+import Dashboard from "./components/MinecraftDashboard/Dashboard";
 import ParticlesBackground from "./components/Background/ParticlesBackground";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
@@ -12,7 +13,6 @@ import Rules from "./components/Rules";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Toast from "./components/Toast";
-import Dashboard from "./components/MinecraftDashboard/Dashboard";
 
 export default function App() {
   const [toast, setToast] = useState("");
@@ -46,13 +46,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-mcBg text-slate-100">
+    <Dashboard>
       <ParticlesBackground />
       <Header onPlayClick={() => handleCopyIp("astralismc.xyz")} />
       <main>
         <Hero onCopyIp={handleCopyIp} onJoinDiscord={handleJoinDiscord} />
         <ServerInfo onCopyIp={handleCopyIp} />
-
         <GameModes />
         <Features />
         <Store />
@@ -62,6 +61,6 @@ export default function App() {
       </main>
       <Footer />
       <Toast message={toast} />
-    </div>
+    </Dashboard>
   );
 }

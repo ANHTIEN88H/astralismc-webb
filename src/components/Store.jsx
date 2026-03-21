@@ -59,7 +59,7 @@ export default function Store() {
   };
 
   return (
-    <section id="store" className="bg-mcBg">
+    <section id="store">
       <div className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="pixel-title text-sm text-[#ADD8E6]">STORE • DONATE</h2>
         <p className="mt-1 text-xs text-slate-300 md:text-sm">
