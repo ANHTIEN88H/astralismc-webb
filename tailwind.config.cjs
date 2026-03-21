@@ -35,6 +35,10 @@ module.exports = {
         "mc-gradient":
           "linear-gradient(145deg, #f9a8d4 0%, #77b6cb 40%, #f9a8d4 75%, #7ac7d5 100%)",
       },
+      borderColor: {
+        "magenta-500": "#d500f9", // Define the magenta border color
+        "magenta-500/50": "rgba(213, 0, 249, 0.5)", // Define the magenta border color with 50% opacity
+      },
     },
   },
   plugins: [],

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import DiscordWidget from "../MinecraftDashboard/DiscordWidget";
 
 const navItems = [
   { href: "#hero", label: "Home" },
@@ -19,7 +20,6 @@ export default function Header({ onPlayClick }) {
           className="flex items-center gap-3"
         >
           <div className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-md bg-white/20 shadow-glowSoft">
-            {/* /public/assets/astralis-logo.png */}
             <img
               src="/assets/astralis-logo.png"
               alt="AstralisMC logo"
@@ -50,6 +50,10 @@ export default function Header({ onPlayClick }) {
             </a>
           ))}
         </nav>
+
+        <div className="hidden md:flex items-center gap-6">
+          <DiscordWidget />
+        </div>
 
         <motion.button
           whileTap={{ scale: 0.96 }}
