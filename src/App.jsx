@@ -12,6 +12,7 @@ import Rules from "./components/Rules";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Toast from "./components/Toast";
+import Dashboard from "./components/MinecraftDashboard/Dashboard";
 
 export default function App() {
   const [toast, setToast] = useState("");
@@ -51,6 +52,7 @@ export default function App() {
       <main>
         <Hero onCopyIp={handleCopyIp} onJoinDiscord={handleJoinDiscord} />
         <ServerInfo onCopyIp={handleCopyIp} />
+
         <GameModes />
         <Features />
         <Store />

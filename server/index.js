@@ -31,11 +31,15 @@ app.get("/api/momo/qr-image", (req, res) => {
   }
 
   res.setHeader("Content-Type", "image/png");
-  fs.createReadStream(abs).on("error", (err) => {
-    // eslint-disable-next-line no-console
-    console.error("createReadStream /api/momo/qr-image failed:", err);
-    res.status(500).json({ error: "Failed to read QR image", message: err.message });
-  }).pipe(res);
+  fs.createReadStream(abs)
+    .on("error", (err) => {
+      // eslint-disable-next-line no-console
+      console.error("createReadStream /api/momo/qr-image failed:", err);
+      res
+        .status(500)
+        .json({ error: "Failed to read QR image", message: err.message });
+    })
+    .pipe(res);
 });
 
 function hmacSha256Hex(secretKey, raw) {
@@ -126,7 +130,8 @@ app.post("/api/momo/create", async (req, res) => {
       return res.status(400).json({ error: "Invalid amountVnd" });
     }
 
-    const safeOrderInfo = typeof orderInfo === "string" ? orderInfo : "MoMo payment";
+    const safeOrderInfo =
+      typeof orderInfo === "string" ? orderInfo : "MoMo payment";
     const safeExtraData = typeof extraData === "string" ? extraData : "";
     const safeRequestType = requestType || "captureWallet";
 
@@ -253,3 +258,24 @@ app.listen(PORT, () => {
   console.log(`MoMo backend listening on http://localhost:${PORT}`);
 });
 
+const { fetchFromPlugin } = require("./mcBridge");
+
+// Route: GET /api/mc/:endpoint
+app.get("/api/mc/:endpoint", async (req, res) => {
+  const { endpoint } = req.params;
+
+  const allowed = ["status", "online-players"];
+  if (!allowed.includes(endpoint)) {
+    return res.status(400).json({ error: "Unknown endpoint" });
+  }
+
+  try {
+    const result = await fetchFromPlugin(endpoint);
+    return res.status(result.status).json(result.body);
+  } catch (err) {
+    return res.status(503).json({
+      error: "Cannot connect to Minecraft server",
+      details: err.message,
+    });
+  }
+});
