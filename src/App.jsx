@@ -58,7 +58,7 @@ export default function App() {
         <ParticlesBackground />
         <Header onPlayClick={() => handleCopyIp("astralismc.xyz")} />
 
-        <main className="relative z-10 min-h-[80vh]">
+        <main className="relative z-10 min-h-[80vh] overflow-x-hidden">
           <Routes>
             <Route
               path="/"
