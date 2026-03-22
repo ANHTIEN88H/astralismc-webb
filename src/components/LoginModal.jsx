@@ -20,10 +20,10 @@ export default function LoginModal({ isOpen, onClose }) {
 
     // Cấu hình để sau khi bấm link trong mail sẽ quay lại web của sếp
     const actionCodeSettings = {
-      url: window.location.origin, // Tự động lấy link localhost hoặc vercel của sếp
+      // Đây là link mà người chơi sẽ quay lại sau khi bấm vào mail
+      url: "https://astralismc-webb.vercel.app",
       handleCodeInApp: true,
     };
-
     try {
       await sendSignInLinkToEmail(auth, email, actionCodeSettings);
 
