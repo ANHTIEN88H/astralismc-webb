@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export default function DiscordWidget() {
   const [onlineCount, setOnlineCount] = useState(0);
 
-  const DISCORD_SERVER_ID = "1439493129706143857";
+  const DISCORD_SERVER_ID = "1425439781026009110";
 
   useEffect(() => {
     fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`)

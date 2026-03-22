@@ -2,9 +2,6 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 const MOMO_DEEPLINK_OR_PAYMENT_LINK = "https://me.momo.vn/4GIlinijidIdfeFvixix";
-// Prefer API endpoint so the QR "works" like intended on Vercel.
-// Also keep fallback to a static image to avoid broken UI if the API route
-// is not available in your deploy setup.
 const MOMO_QR_IMAGE_SRC = "/api/momo/qr-image";
 const MOMO_QR_FALLBACK_SRC = "/momo-qr.png";
 
@@ -12,26 +9,23 @@ const packages = [
   {
     name: "VIP",
     price: "3$ / tháng",
-    // TODO: Set correct VND amount according to your MoMo contract.
-    amountVnd: 300000,
     perks: ["Prefix VIP", "Kit VIP hằng ngày", "Hàng chờ ưu tiên"],
     accent: "from-emerald-500/40 to-emerald-500/5",
+    color: "text-emerald-400",
   },
   {
     name: "MVP",
     price: "7$ / tháng",
-    // TODO: Set correct VND amount according to your MoMo contract.
-    amountVnd: 700000,
     perks: ["Tất cả từ VIP", "Plot /hat /nick", "Particle cosmetic"],
     accent: "from-cyan-400/40 to-cyan-500/5",
+    color: "text-cyan-400",
   },
   {
     name: "LEGEND",
     price: "15$ / tháng",
-    // TODO: Set correct VND amount according to your MoMo contract.
-    amountVnd: 1500000,
     perks: ["Tất cả từ MVP", "Cosmetic độc quyền", "Hỗ trợ ưu tiên"],
     accent: "from-amber-400/40 to-rose-500/10",
+    color: "text-amber-400",
   },
 ];
 
@@ -39,6 +33,7 @@ export default function Store() {
   const [qrOpen, setQrOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [coupon, setCoupon] = useState("");
 
   const closeQr = () => {
     setQrOpen(false);
@@ -46,32 +41,17 @@ export default function Store() {
     setLoading(false);
   };
 
-  const handleBuy = async (p) => {
-    setLoading(true);
-    setError("");
-    try {
-      setQrOpen(true);
-    } catch (e) {
-      setError(String(e?.message || e));
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handlePurchase = async (rankName, price) => {
-    // 1. Hỏi tên ingame
     const playerName = prompt(
       `Sếp mua gói ${rankName}, nhập tên Ingame để Admin xác nhận nhé:`,
     );
     if (!playerName) return;
 
-    setLoading(true); // Bật hiệu ứng loading
-
+    setLoading(true);
     const WEBHOOK_URL =
       "https://discord.com/api/webhooks/1485033160868626552/f-CwvU3TO-JzFhTPyzMye4yg_naA2KWmGh0xsCXXvFoKRK6hCOBzAW2YaSrwxKPxhQOg";
 
     try {
-      // 2. Gửi thông báo về Discord
       await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -85,6 +65,11 @@ export default function Store() {
                 { name: "👤 Người mua", value: playerName, inline: true },
                 { name: "🏆 Gói mua", value: rankName, inline: true },
                 { name: "💵 Giá tiền", value: price, inline: true },
+                {
+                  name: "🎫 Coupon",
+                  value: coupon || "Không có",
+                  inline: true,
+                },
               ],
               footer: { text: "AstralisMC Store" },
               timestamp: new Date(),
@@ -92,8 +77,6 @@ export default function Store() {
           ],
         }),
       });
-
-      // 3. QUAN TRỌNG: Sau khi gửi Discord thành công thì MỞ BẢNG QR
       setQrOpen(true);
     } catch (err) {
       alert("Lỗi gửi đơn hàng!");
@@ -104,115 +87,113 @@ export default function Store() {
   };
 
   return (
-    <section id="store">
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="section-title text-cyan-200 minecraft-title-shadow">
+    <section id="store" className="py-10 px-4">
+      <div className="mx-auto max-w-6xl">
+        <h2 className="pixel-title text-center text-4xl text-yellow-500 minecraft-text-shadow uppercase tracking-widest">
           STORE • DONATE
         </h2>
-        <p className="mt-2 text-sm text-gray-300 md:text-base">
-          Ủng hộ server và nhận rank đẹp, không phải pay‑to‑win.
+        <p className="mt-4 text-center text-cyan-100 max-w-2xl mx-auto">
+          Ủng hộ server và nhận rank đẹp, giúp server duy trì và phát triển bền
+          vững.
         </p>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
+        {/* CÁC GÓI NẠP */}
+        <div className="mt-12 grid gap-8 md:grid-cols-3">
           {packages.map((p, i) => (
             <motion.div
               key={p.name}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="panel relative overflow-hidden p-6"
+              whileHover={{ y: -10 }}
+              className="panel relative overflow-hidden p-8 border-4 border-[#3c3c3c] bg-[#161618]/90 shadow-2xl rounded-lg"
             >
               <div
-                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${p.accent} opacity-60`}
+                className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-30 pointer-events-none`}
               />
-              <div className="relative space-y-3 text-sm">
-                <h3 className="pixel-title text-base text-[#ADD8E6]">
+              <div className="relative space-y-4">
+                <h3
+                  className={`pixel-title text-2xl text-center ${p.color} minecraft-text-shadow-dark`}
+                >
                   {p.name}
                 </h3>
-                <div className="text-lg font-semibold text-slate-100">
+                <div className="text-center text-2xl font-bold text-white">
                   {p.price}
                 </div>
-                <ul className="mt-3 space-y-2 text-sm text-slate-200">
+                <ul className="space-y-3 text-slate-300 min-h-[120px]">
                   {p.perks.map((perk) => (
-                    <li key={perk}>• {perk}</li>
+                    <li key={perk} className="flex items-start gap-2 text-sm">
+                      <span className="text-yellow-500">•</span> {perk}
+                    </li>
                   ))}
                 </ul>
                 <button
-                  className="mt-4 w-full rounded-md border border-emerald-400/70 bg-slate-900/80 py-3 text-sm font-semibold text-[#ADD8E6] shadow-glowSoft transition hover:bg-emerald-500/20 disabled:opacity-60"
+                  className="w-full py-3 bg-[#3c3c3c] hover:bg-[#4a4a4a] text-white font-bold rounded border-b-4 border-black active:border-b-0 active:translate-y-[2px] transition-all uppercase text-xs"
                   onClick={() => handlePurchase(p.name, p.price)}
                   disabled={loading}
                 >
-                  Mua gói
+                  {loading ? "Đang xử lý..." : "Mua ngay"}
                 </button>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Ô NHẬP MÃ GIẢM GIÁ (PHẦN MỚI THÊM) */}
+        <div className="max-w-md mx-auto mt-16 p-6 bg-[#161618]/80 border-4 border-[#3c3c3c] rounded-md shadow-inner text-center">
+          <h3 className="pixel-title text-xs text-slate-400 mb-4 uppercase tracking-tighter">
+            Have a coupon code?
+          </h3>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="Mã giảm giá..."
+              value={coupon}
+              onChange={(e) => setCoupon(e.target.value)}
+              className="flex-grow h-11 px-4 bg-black/60 border-2 border-[#545454] text-yellow-400 focus:outline-none focus:border-yellow-500 rounded font-mono text-sm"
+            />
+            <button className="px-6 bg-[#555555] border-b-4 border-black text-white font-bold hover:bg-[#666666] active:border-b-0 active:translate-y-[2px] rounded uppercase text-xs">
+              Apply
+            </button>
+          </div>
+        </div>
       </div>
 
+      {/* POPUP QR MOMO (GIỮ NGUYÊN) */}
       {qrOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-          <div className="w-full max-w-md rounded-lg bg-slate-900/95 p-4 shadow-xl">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="text-sm font-semibold text-[#ADD8E6]">
-                  Quét QR để thanh toán MoMo
-                </div>
-              </div>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="w-full max-w-sm rounded-lg bg-slate-900 border-4 border-[#3c3c3c] p-6 shadow-2xl">
+            <div className="flex justify-between items-center mb-4">
+              <span className="pixel-title text-xs text-cyan-300">
+                MoMo Payment
+              </span>
               <button
-                className="rounded-md border border-slate-700 px-2 py-1 text-xs text-slate-200 hover:bg-slate-800"
+                className="text-slate-500 hover:text-white"
                 onClick={closeQr}
               >
-                Đóng
+                [X] Đóng
               </button>
             </div>
 
-            <div className="mt-4 flex flex-col items-center gap-3">
-              {error && (
-                <div className="w-full rounded-md border border-red-500/60 bg-red-500/10 p-2 text-xs text-red-200">
-                  {error}
-                </div>
-              )}
+            <div className="bg-white p-3 rounded-md mx-auto w-fit">
+              <img
+                src={MOMO_QR_IMAGE_SRC}
+                alt="MoMo QR"
+                className="h-[200px] w-[200px]"
+                onError={(e) => (e.currentTarget.src = MOMO_QR_FALLBACK_SRC)}
+              />
+            </div>
 
-              <div className="rounded-md bg-white p-3">
-                <img
-                  src={MOMO_QR_IMAGE_SRC}
-                  alt="MoMo QR"
-                  className="h-[220px] w-[220px] object-contain"
-                  onError={(e) => {
-                    e.currentTarget.src = MOMO_QR_FALLBACK_SRC;
-                  }}
-                />
-              </div>
-
-              <div className="text-xs text-slate-300 text-center">
-                Quét QR để thanh toán. (Nội dung: nhập tên ingame và gói muốn
-                mua)
-              </div>
-
+            <div className="mt-4 text-center space-y-3">
+              <p className="text-[11px] text-slate-400">
+                Nội dung chuyển khoản: <br />
+                <strong>Tên Ingame + Tên Gói</strong>
+              </p>
               <a
-                className="mt-1 inline-flex w-full items-center justify-center rounded-md border border-[#ADD8E6]/60 bg-slate-900/60 px-3 py-2 text-[11px] font-semibold text-[#ADD8E6] shadow-glowSoft transition hover:bg-emerald-500/20"
                 href={MOMO_DEEPLINK_OR_PAYMENT_LINK}
                 target="_blank"
                 rel="noreferrer"
+                className="block w-full py-2 bg-[#A50064] text-white text-xs font-bold rounded hover:bg-[#d80082] transition-colors"
               >
-                <img
-                  className="mr-2 h-7 w-7 rounded-sm bg-white/90 object-contain"
-                  src={MOMO_QR_IMAGE_SRC}
-                  alt="MoMo QR"
-                  onError={(e) => {
-                    e.currentTarget.src = MOMO_QR_FALLBACK_SRC;
-                  }}
-                />
-                <span>Mở sang app MoMo để chuyển tiền</span>
+                MỞ APP MOMO
               </a>
-
-              {loading && (
-                <div className="text-xs text-slate-300">
-                  Đang tạo giao dịch...
-                </div>
-              )}
             </div>
           </div>
         </div>
