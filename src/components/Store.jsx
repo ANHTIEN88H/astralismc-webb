@@ -32,7 +32,7 @@ const ranks = [
       "Tất cả quyền VIP",
       "Fly trong lobby",
       "Đổi tên màu chat",
-      "2x Event",
+      "2x điểm Event",
     ],
   },
   {
@@ -42,7 +42,12 @@ const ranks = [
     glow: "#f43f5e",
     border: "rgba(244,63,94,.5)",
     bg: "rgba(244,63,94,.1)",
-    perks: ["Tất cả quyền MVP", "Aura độc quyền", "Dungeon VIP", "3x Event"],
+    perks: [
+      "Tất cả quyền MVP",
+      "Aura độc quyền",
+      "Dungeon VIP",
+      "3x điểm Event",
+    ],
   },
 ];
 
@@ -73,7 +78,7 @@ const items = [
   },
 ];
 
-// ===== 2. STYLES (Đã fix lỗi cú pháp để không bị trắng trang) =====
+// ===== 2. STYLES (Đã fix lỗi cú pháp Object Style) =====
 const S = {
   section: {
     minHeight: "100vh",
@@ -82,6 +87,9 @@ const S = {
     position: "relative",
   },
   inner: { maxWidth: 1100, margin: "0 auto" },
+
+  // Header MMORPG cực sáng
+  headerWrap: { textAlign: "center", marginBottom: 40 },
   h1: {
     fontFamily: "'Minecraft Overhaul', monospace",
     fontSize: "clamp(30px, 5vw, 60px)",
@@ -97,8 +105,31 @@ const S = {
     color: "#fff",
     fontSize: "16px",
     fontWeight: "bold",
-    textShadow: "0 2px 10px #000",
+    textShadow: "0 2px 8px #000",
   },
+
+  // Tabs Style co dãn
+  tabsBar: {
+    display: "flex",
+    justifyContent: "center",
+    gap: 10,
+    marginBottom: 35,
+    flexWrap: "wrap",
+  },
+  tab: (active) => ({
+    padding: "12px 24px",
+    borderRadius: 14,
+    border: active ? "2px solid #f7d77a" : "1px solid rgba(255,255,255,0.1)",
+    background: active ? "rgba(247,215,122,0.15)" : "rgba(0,0,0,0.4)",
+    color: active ? "#f7d77a" : "#fff",
+    fontWeight: "bold",
+    cursor: "pointer",
+    fontFamily: "'Minecraft Overhaul', monospace",
+    transition: "0.2s",
+    fontSize: "14px",
+  }),
+
+  // Panel Glassmorphism
   panel: {
     background: "rgba(12,10,20,0.95)",
     border: "2px solid rgba(255,255,255,0.08)",
@@ -108,7 +139,23 @@ const S = {
     boxShadow: "0 40px 100px rgba(0,0,0,0.8)",
   },
 
-  // Style cho Bảng nạp xu
+  // Style cho Bảng nạp xu (Đã fix PE co dãn)
+  napLayout: { display: "flex", gap: "25px", flexWrap: "wrap" },
+  napLeft: {
+    flex: "1 1 300px",
+    background: "rgba(255,255,255,0.02)",
+    border: "1px solid rgba(255,255,255,0.1)",
+    borderRadius: "24px",
+    padding: "20px",
+  },
+  napRight: {
+    flex: "1 1 300px",
+    background: "#000",
+    borderRadius: "24px",
+    overflow: "hidden",
+    border: "2px solid rgba(255,255,255,0.15)",
+  },
+
   rateTable: { width: "100%", borderCollapse: "collapse" },
   rateTh: {
     padding: "12px",
@@ -119,9 +166,14 @@ const S = {
     textTransform: "uppercase",
     fontFamily: "'Minecraft Overhaul', monospace",
   },
-  rateTd: { padding: "16px 12px", fontSize: "15px", color: "#fff" },
+  rateTd: {
+    padding: "16px 12px",
+    fontSize: "15px",
+    color: "#fff",
+    borderBottom: "1px solid rgba(255,255,255,0.05)",
+  },
 
-  // Huy hiệu Phổ Biến MMORPG
+  // Huy hiệu Phổ Biến MMORPG 3D
   rankBadge: {
     position: "absolute",
     top: "-18px",
@@ -139,7 +191,12 @@ const S = {
     zIndex: 10,
   },
 
-  // Vật phẩm Style
+  // Vật phẩm Style (Đã fix co dãn)
+  itemsGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+    gap: 25,
+  },
   itemCard: {
     background: "rgba(255,255,255,0.05)",
     border: "1px solid rgba(255,255,255,0.1)",
@@ -158,7 +215,7 @@ const S = {
 };
 
 export default function Store() {
-  const [activeTab, setActiveTab] = useState("mua-rank");
+  const [activeTab, setActiveTab] = useState("nap-xu");
   const [hoverRow, setHoverRow] = useState(null);
   const [clickingId, setClickingId] = useState(null);
 
@@ -170,21 +227,14 @@ export default function Store() {
   return (
     <section style={S.section}>
       <div style={S.inner}>
-        {/* HEADER SIÊU SÁNG */}
-        <div style={{ textAlign: "center", marginBottom: 50 }}>
+        {/* HEADER */}
+        <div style={S.headerWrap}>
           <h1 style={S.h1}>ASTRALIS STORE</h1>
           <p style={S.sub}>Ủng hộ server và nhận những đặc quyền tuyệt vời</p>
         </div>
 
-        {/* TABS NÚT BẤM MMORPG */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: 12,
-            marginBottom: 40,
-          }}
-        >
+        {/* TABS */}
+        <div style={S.tabsBar}>
           {["nap-xu", "mua-rank", "vat-pham"].map((id) => (
             <button
               key={id}
@@ -193,48 +243,24 @@ export default function Store() {
                 handleAction(id);
               }}
               style={{
-                padding: "14px 28px",
-                borderRadius: 16,
-                border:
-                  activeTab === id
-                    ? "2px solid #f7d77a"
-                    : "1px solid rgba(255,255,255,0.1)",
-                background:
-                  activeTab === id
-                    ? "rgba(247,215,122,0.2)"
-                    : "rgba(0,0,0,0.5)",
-                color: activeTab === id ? "#f7d77a" : "#fff",
-                fontWeight: "bold",
-                cursor: "pointer",
-                transition: "0.2s",
-                fontFamily: "'Minecraft Overhaul', monospace",
+                ...S.tab(activeTab === id),
                 transform: clickingId === id ? "scale(0.92)" : "scale(1)",
-                textShadow: activeTab === id ? "0 0 10px #f7d77a" : "none",
               }}
             >
               {id === "nap-xu"
                 ? "💎 NẠP XU"
                 : id === "mua-rank"
                   ? "🏆 RANK"
-                  : "🗡️ VẬT PHẨM"}
+                  : "🗡️ ITEM"}
             </button>
           ))}
         </div>
 
         <div style={S.panel}>
-          {/* TAB 1: NẠP XU (ĐÃ KHÔI PHỤC FULL CODE) */}
+          {/* TAB 1: NẠP XU (ĐÃ KHÔI PHỤC FULL CODE CỦA SẾP) */}
           {activeTab === "nap-xu" && (
-            <div style={{ display: "flex", gap: "25px", flexWrap: "wrap" }}>
-              <div
-                style={{
-                  flex: 1,
-                  minWidth: "350px",
-                  padding: "25px",
-                  background: "rgba(255,255,255,0.02)",
-                  borderRadius: "24px",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
-              >
+            <div style={S.napLayout}>
+              <div style={S.napLeft}>
                 <div
                   style={{
                     fontFamily: "'Minecraft Overhaul', monospace",
@@ -265,7 +291,6 @@ export default function Store() {
                             hoverRow === i
                               ? "rgba(178,108,255,0.1)"
                               : "transparent",
-                          borderBottom: "1px solid rgba(255,255,255,0.05)",
                           transition: "0.2s",
                         }}
                       >
@@ -307,16 +332,7 @@ export default function Store() {
                   </tbody>
                 </table>
               </div>
-              <div
-                style={{
-                  flex: 1.3,
-                  minWidth: "350px",
-                  background: "#000",
-                  borderRadius: "24px",
-                  overflow: "hidden",
-                  border: "2px solid rgba(255,255,255,0.15)",
-                }}
-              >
+              <div style={S.napRight}>
                 <iframe
                   src="https://thanhthao11040772-bit.github.io/cv/"
                   style={{ width: "100%", height: 550, border: "none" }}
@@ -326,7 +342,7 @@ export default function Store() {
             </div>
           )}
 
-          {/* TAB 2: MUA RANK (ICON MÊ LY) */}
+          {/* TAB 2: MUA RANK (GIỮ NGUYÊN HIỆU ỨNG ICON MÊ LY) */}
           {activeTab === "mua-rank" && (
             <div
               style={{
@@ -351,7 +367,6 @@ export default function Store() {
                   }}
                 >
                   {rank.badge && <div style={S.rankBadge}>{rank.badge}</div>}
-
                   <center>
                     <div
                       style={{
@@ -376,7 +391,6 @@ export default function Store() {
                       </div>
                     </div>
                   </center>
-
                   <h3
                     style={{
                       fontFamily: "'Minecraft Overhaul', monospace",
@@ -398,7 +412,6 @@ export default function Store() {
                   >
                     {rank.price} / tháng
                   </div>
-
                   <ul
                     style={{
                       listStyle: "none",
@@ -431,7 +444,6 @@ export default function Store() {
                       </li>
                     ))}
                   </ul>
-
                   <button
                     onClick={() => handleAction(rank.name)}
                     style={{
@@ -444,29 +456,21 @@ export default function Store() {
                       fontWeight: "900",
                       cursor: "pointer",
                       fontFamily: "'Minecraft Overhaul', monospace",
-                      fontSize: 16,
                       transition: "0.1s",
                       transform:
                         clickingId === rank.name ? "scale(0.95)" : "scale(1)",
-                      boxShadow: `0 5px 0 rgba(0,0,0,0.3), 0 0 20px ${rank.glow}40`,
                     }}
                   >
-                    SỞ HỮU NGAY
+                    SỞ HỮU
                   </button>
                 </div>
               ))}
             </div>
           )}
 
-          {/* TAB 3: VẬT PHẨM (ĐÃ KHÔI PHỤC FULL CODE) */}
+          {/* TAB 3: VẬT PHẨM (ĐÃ KHÔI PHỤC FULL CODE CỦA SẾP) */}
           {activeTab === "vat-pham" && (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-                gap: 25,
-              }}
-            >
+            <div style={S.itemsGrid}>
               {items.map((item, idx) => (
                 <div key={idx} style={S.itemCard}>
                   <div>
@@ -541,14 +545,11 @@ export default function Store() {
           )}
         </div>
       </div>
-
       <style>{`
-        @keyframes floating {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-12px); }
-        }
+        @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
         .icon-floating { animation: floating 3s ease-in-out infinite; }
-        .rank-card:hover { transform: translateY(-10px); }
+        .tab-button:hover { background: rgba(247,215,122,0.1) !important; color: #fff !important; }
+        .rank-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); }
       `}</style>
     </section>
   );
