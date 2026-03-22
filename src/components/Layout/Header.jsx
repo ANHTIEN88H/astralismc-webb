@@ -8,7 +8,7 @@ const navItems = [
   { to: "/modes", label: "Game Modes" },
   { to: "/info", label: "Server Info" },
   { to: "/leaderboard", label: "Vinh Danh" },
-  { to: "/store", label: "Store" },
+  { to: "/store", label: " Donate-Store" },
   { to: "/rules", label: "Rules" },
   { to: "/contact", label: "Contact" },
 ];

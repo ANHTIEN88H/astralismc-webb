@@ -1,189 +1,90 @@
-import { useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
 
-export default function Contact({ onToast }) {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [formData, setFormData] = useState({
-    ingame: "",
-    email: "",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const WEBHOOK_URL =
-      "https://discord.com/api/webhooks/1485033160868626552/f-CwvU3TO-JzFhTPyzMye4yg_naA2KWmGh0xsCXXvFoKRK6hCOBzAW2YaSrwxKPxhQOg";
-
-    try {
-      await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          // Dòng này sẽ tag sếp ở ngoài bảng Embed để Discord nổ thông báo
-          content: "<@1359147263632609460> 🔔 CÓ YÊU CẦU HỖ TRỢ MỚI!",
-
-          embeds: [
-            {
-              title: "📩 LIÊN HỆ MỚI TỪ WEBSITE",
-              color: 0xadd8e6,
-              fields: [
-                {
-                  name: "👤 Ingame",
-                  value: formData.ingame || "Trống",
-                  inline: true,
-                },
-                {
-                  name: "📧 Email",
-                  value: formData.email || "Trống",
-                  inline: true,
-                },
-                { name: "📝 Nội dung", value: formData.message || "Trống" },
-              ],
-              timestamp: new Date(),
-            },
-          ],
-        }),
-      });
-      alert("✅ Đã gửi hỗ trợ thành công!");
-      setFormData({ ingame: "", email: "", message: "" }); // Gửi xong xóa trắng ô nhập
-    } catch (err) {
-      alert("❌ Lỗi gửi tin, bạn check lại link Webhook nhé!");
-    }
-  };
-
-  const handlePurchase = async (rankName, price) => {
-    // Sếp có thể dùng link Webhook cũ hoặc tạo một link mới cho kênh #nap-the
-    const WEBHOOK_STORE_URL = "DÁN_LINK_WEBHOOK_KÊNH_NẠP_THẺ_VÀO_ĐÂY";
-
-    // Yêu cầu người chơi nhập tên để biết ai mua
-    const playerName = prompt("Nhập tên Ingame của bạn để Admin cộng Rank:");
-    if (!playerName) return;
-
-    const payload = {
-      // Tag @everyone hoặc ID của sếp để báo có tiền về!
-      content: "💰 **CÓ ĐƠN HÀNG MỚI ĐANG CHỜ DUYỆT!**",
-      embeds: [
-        {
-          title: "💎 CHI TIẾT GIAO DỊCH",
-          color: 0xffa500, // Màu cam cho rực rỡ
-          fields: [
-            { name: "👤 Người mua", value: playerName, inline: true },
-            { name: "🏆 Gói Rank", value: rankName, inline: true },
-            { name: "💵 Số tiền", value: price, inline: true },
-            {
-              name: "📝 Trạng thái",
-              value: "Đang chờ Admin kiểm tra ngân hàng...",
-            },
-          ],
-          footer: { text: "AstralisMC Store - Cảm ơn bạn đã ủng hộ!" },
-          timestamp: new Date(),
-        },
-      ],
-    };
-
-    try {
-      await fetch(WEBHOOK_STORE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      alert(
-        "✅ Đã gửi yêu cầu! bạn vui lòng chuyển khoản/nạp thẻ và chờ Admin duyệt nhé.",
-      );
-    } catch (err) {
-      alert("❌ Lỗi gửi đơn hàng!");
-    }
-  };
+export default function Contact() {
+  // Sếp thay link Discord thật của server vào đây
+  const discordLink = "https://discord.gg/rzBWcVMp";
 
   return (
-    <section id="contact" className="border-t border-slate-800/80">
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="section-title text-cyan-200 minecraft-title-shadow">
-          CONTACT
+    <div className="max-w-3xl mx-auto px-4 py-12">
+      {/* KHU VỰC TIÊU ĐỀ: ĐÃ ĐƯỢC FIX LỖI FONT VÀ UI */}
+      <div className="text-center space-y-4 mb-10">
+        {/* FIX LỖI 1: Tiêu đề bị hư form/vỡ chữ Tiếng Việt */}
+        {/* Đổi từ pixel-title sang font-black (hoặc font-extrabold) để hiển thị mượt mà dấu Tiếng Việt */}
+        <h2 className="text-4xl md:text-5xl font-black text-cyan-100 minecraft-text-shadow uppercase tracking-wide">
+          TRUNG TÂM HỖ TRỢ
         </h2>
-        <p className="mt-2 text-sm text-gray-300 md:text-base">
-          Liên hệ team STAFF hoặc tham gia Discord để được hỗ trợ nhanh nhất.
+
+        {/* FIX LỖI 2: Câu mô tả chữ tối khó thấy */}
+        {/* Đổi từ text-slate-400 sang text-cyan-100 để chữ nổi bần bật trên nền tối mờ */}
+        <p className="text-cyan-100 text-sm md:text-base px-4 max-w-xl mx-auto leading-relaxed">
+          Đội ngũ Admin AstralisMC luôn sẵn sàng hỗ trợ bạn qua Discord.
         </p>
+      </div>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-[3fr_2fr]">
-          <form onSubmit={handleSubmit} className="panel space-y-4 p-6 text-sm">
-            <div>
-              <label className="mb-2 block text-sm text-slate-300">
-                Tên ingame / nickname *
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.ingame}
-                onChange={(e) =>
-                  setFormData({ ...formData, ingame: e.target.value })
-                }
-                className="w-full rounded border border-slate-600 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 outline-none ring-emerald-500/50 focus:ring"
-                placeholder="VD: SteveVN"
-              />
-            </div>
-            <div>
-              <label className="mb-2 block text-sm text-slate-300">
-                Email liên hệ *
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                className="w-full rounded border border-slate-600 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 outline-none ring-emerald-500/50 focus:ring"
-                placeholder="you@example.com"
-              />
-            </div>
-            <div>
-              <label className="mb-2 block text-sm text-slate-300">
-                Nội dung
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-                rows={4}
-                className="w-full resize-none rounded border border-slate-600 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 outline-none ring-emerald-500/50 focus:ring"
-                placeholder="Mô tả vấn đề hoặc ý kiến góp ý..."
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn-glow w-full justify-center text-sm"
-            >
-              Gửi liên hệ
-            </button>
-          </form>
+      {/* BOX HƯỚNG DẪN (GIỮ NGUYÊN) */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="panel border-4 border-[#3c3c3c] bg-[#161618]/90 rounded-xl p-6 md:p-10 shadow-2xl relative overflow-hidden"
+      >
+        {/* ... (phần code box hướng dẫn giữ nguyên) ... */}
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-[#5865F2]/20 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-cyan-600/20 blur-3xl rounded-full pointer-events-none" />
 
-          <div className="panel flex flex-col justify-between space-y-4 p-6 text-sm">
-            <div>
-              <h3 className="text-base font-semibold text-slate-100">
-                Discord Community
+        <div className="relative z-10 space-y-8">
+          {/* BƯỚC 1: VÀO DISCORD */}
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 p-5 rounded-lg bg-black/40 border border-white/5">
+            <div className="flex-shrink-0 w-16 h-16 bg-[#5865F2]/20 border-2 border-[#5865F2] rounded-xl flex items-center justify-center text-3xl shadow-[0_0_15px_rgba(88,101,242,0.4)]">
+              💬
+            </div>
+            <div className="flex-grow space-y-2">
+              <h3 className="text-xl font-bold text-white uppercase tracking-wide">
+                Bước 1: Tham gia Discord
               </h3>
-              <p className="mt-2 text-sm text-slate-300">
-                Tham gia Discord để chat với cộng đồng, nhận thông báo update &
-                support nhanh hơn.
+              <p className="text-slate-300 text-sm leading-relaxed">
+                Mọi yêu cầu hỗ trợ, báo cáo lỗi (bug), hay thắc mắc nạp thẻ đều
+                được giải quyết nhanh nhất thông qua Server Discord chính thức.
               </p>
             </div>
             <a
-              href="https://discord.gg/rzBWcVMp"
+              href={discordLink}
               target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-md border border-indigo-400/70 bg-slate-950/80 py-3 text-sm font-semibold text-indigo-200 shadow-glowSoft transition hover:bg-indigo-500/20"
+              rel="noopener noreferrer"
+              className="w-full md:w-auto text-center px-6 py-3 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold rounded shadow-lg transition-transform active:scale-95 whitespace-nowrap"
             >
-              💬 Join Discord
+              Vào Discord Ngay
             </a>
           </div>
+
+          {/* BƯỚC 2: TẠO TICKET */}
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 p-5 rounded-lg bg-black/40 border border-white/5">
+            <div className="flex-shrink-0 w-16 h-16 bg-cyan-500/20 border-2 border-cyan-500 rounded-xl flex items-center justify-center text-3xl shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+              🎫
+            </div>
+            <div className="flex-grow space-y-2">
+              <h3 className="text-xl font-bold text-white uppercase tracking-wide">
+                Bước 2: Tạo Ticket Hỗ Trợ
+              </h3>
+              <ul className="text-slate-300 text-sm leading-relaxed list-disc list-inside space-y-1">
+                <li>
+                  Tìm đến kênh{" "}
+                  <span className="text-cyan-300 font-mono bg-cyan-900/30 px-2 py-0.5 rounded">
+                    #📩・ticket
+                  </span>
+                  .
+                </li>
+                <li>
+                  Bấm vào nút <strong>"Tạo Ticket"</strong> ở trong kênh đó.
+                </li>
+                <li>
+                  Trình bày rõ vấn đề (kèm ảnh nếu có) và chờ Admin xử lý nhé!
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </div>
   );
 }
