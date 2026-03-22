@@ -26,10 +26,14 @@ module.exports = {
         mcAccent: "#a5b4fc",
         mcAccent2: "#7dd3fc",
         mcAccent3: "#f9a8d4",
+        deepPurple: "#2a003e",
+        neonCyan: "#00ffff",
+        greenGlow: "#00ff00",
       },
       boxShadow: {
         glow: "0 0 35px rgba(244,114,182,0.6)", // hồng pastel glow
         glowSoft: "0 0 22px rgba(129,140,248,0.5)",
+        glowBox: "0 0 10px #00ffff, 0 0 20px #00ffff", // glowing box-shadow
       },
       backgroundImage: {
         "mc-gradient":

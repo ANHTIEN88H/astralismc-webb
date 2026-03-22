@@ -11,12 +11,16 @@ export default function LoginModal({ isOpen, onClose }) {
   const handleSendEmail = async (e) => {
     e.preventDefault();
 
-    if (!email || !email.includes("@")) {
-      alert("Sếp ơi, vui lòng nhập đúng định dạng Email nhé! 📩");
+    // --- ĐOẠN BYPASS ĐỂ TEST KHI HẾT QUOTA ---
+    if (email === "admin@test.com") {
+      alert("Chế độ Sếp: Đang giả lập gửi mail thành công!");
+      setStep(2); // Nhảy thẳng sang bước báo check mail để sếp xem giao diện
       return;
     }
+    // ---------------------------------------
 
     setLoading(true);
+    // ... (đoạn code Firebase cũ của sếp bên dưới giữ nguyên)
 
     // Cấu hình để sau khi bấm link trong mail sẽ quay lại web của sếp
     const actionCodeSettings = {

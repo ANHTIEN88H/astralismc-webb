@@ -1,203 +1,555 @@
-import { motion } from "framer-motion";
 import { useState } from "react";
 
-const MOMO_DEEPLINK_OR_PAYMENT_LINK = "https://me.momo.vn/4GIlinijidIdfeFvixix";
-const MOMO_QR_IMAGE_SRC = "/api/momo/qr-image";
-const MOMO_QR_FALLBACK_SRC = "/momo-qr.png";
+// ===== 1. DATA (Giữ nguyên tuyệt đối 100% của sếp) =====
+const exchangeTable = [
+  { price: "10,000đ", tokens: "12 Xu", bonus: null },
+  { price: "50,000đ", tokens: "60 Xu", bonus: null },
+  { price: "100,000đ", tokens: "120 Xu", bonus: "+10%" },
+  { price: "200,000đ", tokens: "240 Xu", bonus: "+15%" },
+  { price: "500,000đ", tokens: "600 Xu", bonus: "+20%" },
+  { price: "1,000,000đ", tokens: "1200 Xu", bonus: "+25%" },
+];
 
-const packages = [
+const ranks = [
   {
     name: "VIP",
-    price: "3$ / tháng",
-    perks: ["Prefix VIP", "Kit VIP hằng ngày", "Hàng chờ ưu tiên"],
-    accent: "from-emerald-500/40 to-emerald-500/5",
-    color: "text-emerald-400",
+    price: "300 Xu",
+    icon: "🌿",
+    glow: "#34d399",
+    border: "rgba(52,211,153,.5)",
+    bg: "rgba(52,211,153,.1)",
+    perks: ["Prefix nổi bật", "Kit hằng ngày", "Ưu tiên slot"],
   },
   {
     name: "MVP",
-    price: "7$ / tháng",
-    perks: ["Tất cả từ VIP", "Plot /hat /nick", "Particle cosmetic"],
-    accent: "from-cyan-400/40 to-cyan-500/5",
-    color: "text-cyan-400",
+    price: "700 Xu",
+    icon: "💠",
+    glow: "#22d3ee",
+    border: "rgba(34,211,238,.5)",
+    bg: "rgba(34,211,238,.1)",
+    badge: "PHỔ BIẾN",
+    perks: [
+      "Tất cả quyền VIP",
+      "Fly trong lobby",
+      "Đổi tên màu chat",
+      "2x Event",
+    ],
   },
   {
     name: "LEGEND",
-    price: "15$ / tháng",
-    perks: ["Tất cả từ MVP", "Cosmetic độc quyền", "Hỗ trợ ưu tiên"],
-    accent: "from-amber-400/40 to-rose-500/10",
-    color: "text-amber-400",
+    price: "1500 Xu",
+    icon: "🔥",
+    glow: "#f43f5e",
+    border: "rgba(244,63,94,.5)",
+    bg: "rgba(244,63,94,.1)",
+    perks: ["Tất cả quyền MVP", "Aura độc quyền", "Dungeon VIP", "3x Event"],
   },
 ];
 
+const items = [
+  {
+    name: "Chìa khóa Thần Bí",
+    desc: "Dùng để mở rương Gacha tại Spawn",
+    price: "50 Xu",
+    icon: "🗝️",
+    rarity: "Hiếm",
+    rarityColor: "#a78bfa",
+  },
+  {
+    name: "Gói Khởi Đầu MMORPG",
+    desc: "Nhận ngay giáp sắt và vũ khí cơ bản",
+    price: "120 Xu",
+    icon: "🎒",
+    rarity: "Thường",
+    rarityColor: "#94a3b8",
+  },
+  {
+    name: "Bảo hiểm Túi Đồ",
+    desc: "Giữ lại đồ khi chết (Kích hoạt 24h)",
+    price: "200 Xu",
+    icon: "🛡️",
+    rarity: "Sử thi",
+    rarityColor: "#fb923c",
+  },
+];
+
+// ===== 2. STYLES (Đã fix lỗi cú pháp để không bị trắng trang) =====
+const S = {
+  section: {
+    minHeight: "100vh",
+    padding: "48px 16px 80px",
+    color: "#fff",
+    position: "relative",
+  },
+  inner: { maxWidth: 1100, margin: "0 auto" },
+  h1: {
+    fontFamily: "'Minecraft Overhaul', monospace",
+    fontSize: "clamp(30px, 5vw, 60px)",
+    fontWeight: 900,
+    background: "linear-gradient(180deg,#fff, #f7d77a, #d9a94a)",
+    WebkitBackgroundClip: "text",
+    backgroundClip: "text",
+    color: "transparent",
+    filter:
+      "drop-shadow(0 0 10px rgba(247,215,122,0.5)) drop-shadow(4px 4px 0px #000)",
+  },
+  sub: {
+    color: "#fff",
+    fontSize: "16px",
+    fontWeight: "bold",
+    textShadow: "0 2px 10px #000",
+  },
+  panel: {
+    background: "rgba(12,10,20,0.95)",
+    border: "2px solid rgba(255,255,255,0.08)",
+    borderRadius: 32,
+    padding: "35px",
+    backdropFilter: "blur(20px)",
+    boxShadow: "0 40px 100px rgba(0,0,0,0.8)",
+  },
+
+  // Style cho Bảng nạp xu
+  rateTable: { width: "100%", borderCollapse: "collapse" },
+  rateTh: {
+    padding: "12px",
+    color: "#f7d77a",
+    fontSize: "12px",
+    textAlign: "left",
+    borderBottom: "2px solid rgba(255,255,255,0.1)",
+    textTransform: "uppercase",
+    fontFamily: "'Minecraft Overhaul', monospace",
+  },
+  rateTd: { padding: "16px 12px", fontSize: "15px", color: "#fff" },
+
+  // Huy hiệu Phổ Biến MMORPG
+  rankBadge: {
+    position: "absolute",
+    top: "-18px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "linear-gradient(180deg, #FFD700, #FFA500)",
+    color: "#000",
+    fontSize: "11px",
+    fontWeight: "900",
+    padding: "5px 15px",
+    borderRadius: "8px",
+    border: "2px solid #FFF",
+    boxShadow: "0 0 20px rgba(255,165,0,0.8), 0 4px 0 #8B4513",
+    fontFamily: "'Minecraft Overhaul', sans-serif",
+    zIndex: 10,
+  },
+
+  // Vật phẩm Style
+  itemCard: {
+    background: "rgba(255,255,255,0.05)",
+    border: "1px solid rgba(255,255,255,0.1)",
+    borderRadius: 24,
+    padding: "24px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  itemName: {
+    fontFamily: "'Minecraft Overhaul', monospace",
+    fontSize: "20px",
+    color: "#f7d77a",
+    margin: "10px 0",
+  },
+};
+
 export default function Store() {
-  const [qrOpen, setQrOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [coupon, setCoupon] = useState("");
+  const [activeTab, setActiveTab] = useState("mua-rank");
+  const [hoverRow, setHoverRow] = useState(null);
+  const [clickingId, setClickingId] = useState(null);
 
-  const closeQr = () => {
-    setQrOpen(false);
-    setError("");
-    setLoading(false);
-  };
-
-  const handlePurchase = async (rankName, price) => {
-    const playerName = prompt(
-      `Sếp mua gói ${rankName}, nhập tên Ingame để Admin xác nhận nhé:`,
-    );
-    if (!playerName) return;
-
-    setLoading(true);
-    const WEBHOOK_URL =
-      "https://discord.com/api/webhooks/1485033160868626552/f-CwvU3TO-JzFhTPyzMye4yg_naA2KWmGh0xsCXXvFoKRK6hCOBzAW2YaSrwxKPxhQOg";
-
-    try {
-      await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: "<@1359147263632609460> 💰 **CÓ ĐƠN HÀNG MỚI TỪ STORE!**",
-          embeds: [
-            {
-              title: "💎 CHI TIẾT GIAO DỊCH",
-              color: 0xffa500,
-              fields: [
-                { name: "👤 Người mua", value: playerName, inline: true },
-                { name: "🏆 Gói mua", value: rankName, inline: true },
-                { name: "💵 Giá tiền", value: price, inline: true },
-                {
-                  name: "🎫 Coupon",
-                  value: coupon || "Không có",
-                  inline: true,
-                },
-              ],
-              footer: { text: "AstralisMC Store" },
-              timestamp: new Date(),
-            },
-          ],
-        }),
-      });
-      setQrOpen(true);
-    } catch (err) {
-      alert("Lỗi gửi đơn hàng!");
-      setError("Không thể kết nối đến hệ thống thông báo.");
-    } finally {
-      setLoading(false);
-    }
+  const handleAction = (id) => {
+    setClickingId(id);
+    setTimeout(() => setClickingId(null), 150);
   };
 
   return (
-    <section id="store" className="py-10 px-4">
-      <div className="mx-auto max-w-6xl">
-        <h2 className="pixel-title text-center text-4xl text-yellow-500 minecraft-text-shadow uppercase tracking-widest">
-          STORE • DONATE
-        </h2>
-        <p className="mt-4 text-center text-cyan-100 max-w-2xl mx-auto">
-          Ủng hộ server và nhận rank đẹp, giúp server duy trì và phát triển bền
-          vững.
-        </p>
+    <section style={S.section}>
+      <div style={S.inner}>
+        {/* HEADER SIÊU SÁNG */}
+        <div style={{ textAlign: "center", marginBottom: 50 }}>
+          <h1 style={S.h1}>ASTRALIS STORE</h1>
+          <p style={S.sub}>Ủng hộ server và nhận những đặc quyền tuyệt vời</p>
+        </div>
 
-        {/* CÁC GÓI NẠP */}
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {packages.map((p, i) => (
-            <motion.div
-              key={p.name}
-              whileHover={{ y: -10 }}
-              className="panel relative overflow-hidden p-8 border-4 border-[#3c3c3c] bg-[#161618]/90 shadow-2xl rounded-lg"
+        {/* TABS NÚT BẤM MMORPG */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 12,
+            marginBottom: 40,
+          }}
+        >
+          {["nap-xu", "mua-rank", "vat-pham"].map((id) => (
+            <button
+              key={id}
+              onClick={() => {
+                setActiveTab(id);
+                handleAction(id);
+              }}
+              style={{
+                padding: "14px 28px",
+                borderRadius: 16,
+                border:
+                  activeTab === id
+                    ? "2px solid #f7d77a"
+                    : "1px solid rgba(255,255,255,0.1)",
+                background:
+                  activeTab === id
+                    ? "rgba(247,215,122,0.2)"
+                    : "rgba(0,0,0,0.5)",
+                color: activeTab === id ? "#f7d77a" : "#fff",
+                fontWeight: "bold",
+                cursor: "pointer",
+                transition: "0.2s",
+                fontFamily: "'Minecraft Overhaul', monospace",
+                transform: clickingId === id ? "scale(0.92)" : "scale(1)",
+                textShadow: activeTab === id ? "0 0 10px #f7d77a" : "none",
+              }}
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-30 pointer-events-none`}
-              />
-              <div className="relative space-y-4">
-                <h3
-                  className={`pixel-title text-2xl text-center ${p.color} minecraft-text-shadow-dark`}
-                >
-                  {p.name}
-                </h3>
-                <div className="text-center text-2xl font-bold text-white">
-                  {p.price}
-                </div>
-                <ul className="space-y-3 text-slate-300 min-h-[120px]">
-                  {p.perks.map((perk) => (
-                    <li key={perk} className="flex items-start gap-2 text-sm">
-                      <span className="text-yellow-500">•</span> {perk}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  className="w-full py-3 bg-[#3c3c3c] hover:bg-[#4a4a4a] text-white font-bold rounded border-b-4 border-black active:border-b-0 active:translate-y-[2px] transition-all uppercase text-xs"
-                  onClick={() => handlePurchase(p.name, p.price)}
-                  disabled={loading}
-                >
-                  {loading ? "Đang xử lý..." : "Mua ngay"}
-                </button>
-              </div>
-            </motion.div>
+              {id === "nap-xu"
+                ? "💎 NẠP XU"
+                : id === "mua-rank"
+                  ? "🏆 RANK"
+                  : "🗡️ VẬT PHẨM"}
+            </button>
           ))}
         </div>
 
-        {/* Ô NHẬP MÃ GIẢM GIÁ (PHẦN MỚI THÊM) */}
-        <div className="max-w-md mx-auto mt-16 p-6 bg-[#161618]/80 border-4 border-[#3c3c3c] rounded-md shadow-inner text-center">
-          <h3 className="pixel-title text-xs text-slate-400 mb-4 uppercase tracking-tighter">
-            Have a coupon code?
-          </h3>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              placeholder="Mã giảm giá..."
-              value={coupon}
-              onChange={(e) => setCoupon(e.target.value)}
-              className="flex-grow h-11 px-4 bg-black/60 border-2 border-[#545454] text-yellow-400 focus:outline-none focus:border-yellow-500 rounded font-mono text-sm"
-            />
-            <button className="px-6 bg-[#555555] border-b-4 border-black text-white font-bold hover:bg-[#666666] active:border-b-0 active:translate-y-[2px] rounded uppercase text-xs">
-              Apply
-            </button>
-          </div>
+        <div style={S.panel}>
+          {/* TAB 1: NẠP XU (ĐÃ KHÔI PHỤC FULL CODE) */}
+          {activeTab === "nap-xu" && (
+            <div style={{ display: "flex", gap: "25px", flexWrap: "wrap" }}>
+              <div
+                style={{
+                  flex: 1,
+                  minWidth: "350px",
+                  padding: "25px",
+                  background: "rgba(255,255,255,0.02)",
+                  borderRadius: "24px",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "'Minecraft Overhaul', monospace",
+                    color: "#f7d77a",
+                    fontSize: 22,
+                    textAlign: "center",
+                    marginBottom: 25,
+                  }}
+                >
+                  📊 QUY ĐỔI XU
+                </div>
+                <table style={S.rateTable}>
+                  <thead>
+                    <tr>
+                      <th style={S.rateTh}>Mệnh giá</th>
+                      <th style={S.rateTh}>Nhận được</th>
+                      <th style={S.rateTh}>Bonus</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {exchangeTable.map((pkg, i) => (
+                      <tr
+                        key={i}
+                        onMouseEnter={() => setHoverRow(i)}
+                        onMouseLeave={() => setHoverRow(null)}
+                        style={{
+                          background:
+                            hoverRow === i
+                              ? "rgba(178,108,255,0.1)"
+                              : "transparent",
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                          transition: "0.2s",
+                        }}
+                      >
+                        <td style={{ ...S.rateTd, fontWeight: "bold" }}>
+                          {pkg.price}
+                        </td>
+                        <td style={S.rateTd}>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 8,
+                              color: "#fbbf24",
+                              fontWeight: "900",
+                            }}
+                          >
+                            <span>🪙</span> {pkg.tokens}
+                          </div>
+                        </td>
+                        <td style={S.rateTd}>
+                          {pkg.bonus && (
+                            <span
+                              style={{
+                                background: "rgba(251,146,60,0.2)",
+                                color: "#fb923c",
+                                border: "1px solid #fb923c",
+                                padding: "3px 10px",
+                                borderRadius: "6px",
+                                fontSize: "11px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {pkg.bonus}
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div
+                style={{
+                  flex: 1.3,
+                  minWidth: "350px",
+                  background: "#000",
+                  borderRadius: "24px",
+                  overflow: "hidden",
+                  border: "2px solid rgba(255,255,255,0.15)",
+                }}
+              >
+                <iframe
+                  src="https://thanhthao11040772-bit.github.io/cv/"
+                  style={{ width: "100%", height: 550, border: "none" }}
+                  title="Nạp"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: MUA RANK (ICON MÊ LY) */}
+          {activeTab === "mua-rank" && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                gap: "30px",
+              }}
+            >
+              {ranks.map((rank) => (
+                <div
+                  key={rank.name}
+                  className="rank-card"
+                  style={{
+                    position: "relative",
+                    padding: "45px 25px 35px",
+                    borderRadius: 28,
+                    border: `2px solid ${rank.border}`,
+                    background: rank.bg,
+                    backdropFilter: "blur(15px)",
+                    textAlign: "center",
+                    transition: "0.3s",
+                  }}
+                >
+                  {rank.badge && <div style={S.rankBadge}>{rank.badge}</div>}
+
+                  <center>
+                    <div
+                      style={{
+                        width: 110,
+                        height: 110,
+                        borderRadius: "50%",
+                        background: `radial-gradient(circle, ${rank.glow}40, transparent 70%)`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 20,
+                      }}
+                    >
+                      <div
+                        className="icon-floating"
+                        style={{
+                          fontSize: 65,
+                          filter: `drop-shadow(0 0 15px ${rank.glow})`,
+                        }}
+                      >
+                        {rank.icon}
+                      </div>
+                    </div>
+                  </center>
+
+                  <h3
+                    style={{
+                      fontFamily: "'Minecraft Overhaul', monospace",
+                      fontSize: 32,
+                      color: rank.glow,
+                      textShadow: `0 0 15px ${rank.glow}50`,
+                      marginBottom: 5,
+                    }}
+                  >
+                    {rank.name}
+                  </h3>
+                  <div
+                    style={{
+                      fontFamily: "'Minecraft Overhaul', monospace",
+                      fontSize: 18,
+                      color: "#fff",
+                      marginBottom: 25,
+                    }}
+                  >
+                    {rank.price} / tháng
+                  </div>
+
+                  <ul
+                    style={{
+                      listStyle: "none",
+                      padding: 0,
+                      textAlign: "left",
+                      marginBottom: 30,
+                    }}
+                  >
+                    {rank.perks.map((p, i) => (
+                      <li
+                        key={i}
+                        style={{
+                          padding: "10px 0",
+                          borderBottom: "1px solid rgba(255,255,255,0.05)",
+                          fontSize: 14,
+                          color: "#fff",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        <span
+                          style={{
+                            color: rank.glow,
+                            marginRight: 10,
+                            fontSize: 16,
+                          }}
+                        >
+                          ✔
+                        </span>{" "}
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <button
+                    onClick={() => handleAction(rank.name)}
+                    style={{
+                      width: "100%",
+                      padding: "16px",
+                      borderRadius: 14,
+                      border: "none",
+                      background: rank.glow,
+                      color: "#000",
+                      fontWeight: "900",
+                      cursor: "pointer",
+                      fontFamily: "'Minecraft Overhaul', monospace",
+                      fontSize: 16,
+                      transition: "0.1s",
+                      transform:
+                        clickingId === rank.name ? "scale(0.95)" : "scale(1)",
+                      boxShadow: `0 5px 0 rgba(0,0,0,0.3), 0 0 20px ${rank.glow}40`,
+                    }}
+                  >
+                    SỞ HỮU NGAY
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* TAB 3: VẬT PHẨM (ĐÃ KHÔI PHỤC FULL CODE) */}
+          {activeTab === "vat-pham" && (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+                gap: 25,
+              }}
+            >
+              {items.map((item, idx) => (
+                <div key={idx} style={S.itemCard}>
+                  <div>
+                    <div
+                      className="icon-floating"
+                      style={{ fontSize: 45, marginBottom: 15 }}
+                    >
+                      {item.icon}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 11,
+                        fontWeight: "900",
+                        color: item.rarityColor,
+                        textTransform: "uppercase",
+                        letterSpacing: 1,
+                      }}
+                    >
+                      ◆ {item.rarity}
+                    </div>
+                    <div style={S.itemName}>{item.name}</div>
+                    <p
+                      style={{
+                        color: "#fff",
+                        fontSize: 13,
+                        lineHeight: "1.6",
+                        fontWeight: "500",
+                      }}
+                    >
+                      {item.desc}
+                    </p>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: 30,
+                    }}
+                  >
+                    <span
+                      style={{
+                        color: "#34d399",
+                        fontWeight: "900",
+                        fontSize: 20,
+                        fontFamily: "'Minecraft Overhaul', monospace",
+                      }}
+                    >
+                      🪙 {item.price}
+                    </span>
+                    <button
+                      onClick={() => handleAction(item.name)}
+                      style={{
+                        background: "rgba(178,108,255,0.3)",
+                        border: "2px solid #b26cff",
+                        color: "#fff",
+                        padding: "10px 22px",
+                        borderRadius: 12,
+                        fontWeight: "900",
+                        cursor: "pointer",
+                        transition: "0.1s",
+                        transform:
+                          clickingId === item.name ? "scale(0.9)" : "scale(1)",
+                      }}
+                    >
+                      MUA
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* POPUP QR MOMO (GIỮ NGUYÊN) */}
-      {qrOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="w-full max-w-sm rounded-lg bg-slate-900 border-4 border-[#3c3c3c] p-6 shadow-2xl">
-            <div className="flex justify-between items-center mb-4">
-              <span className="pixel-title text-xs text-cyan-300">
-                MoMo Payment
-              </span>
-              <button
-                className="text-slate-500 hover:text-white"
-                onClick={closeQr}
-              >
-                [X] Đóng
-              </button>
-            </div>
-
-            <div className="bg-white p-3 rounded-md mx-auto w-fit">
-              <img
-                src={MOMO_QR_IMAGE_SRC}
-                alt="MoMo QR"
-                className="h-[200px] w-[200px]"
-                onError={(e) => (e.currentTarget.src = MOMO_QR_FALLBACK_SRC)}
-              />
-            </div>
-
-            <div className="mt-4 text-center space-y-3">
-              <p className="text-[11px] text-slate-400">
-                Nội dung chuyển khoản: <br />
-                <strong>Tên Ingame + Tên Gói</strong>
-              </p>
-              <a
-                href={MOMO_DEEPLINK_OR_PAYMENT_LINK}
-                target="_blank"
-                rel="noreferrer"
-                className="block w-full py-2 bg-[#A50064] text-white text-xs font-bold rounded hover:bg-[#d80082] transition-colors"
-              >
-                MỞ APP MOMO
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      <style>{`
+        @keyframes floating {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-12px); }
+        }
+        .icon-floating { animation: floating 3s ease-in-out infinite; }
+        .rank-card:hover { transform: translateY(-10px); }
+      `}</style>
     </section>
   );
 }

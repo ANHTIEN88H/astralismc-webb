@@ -2,7 +2,8 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import DiscordWidget from "../MinecraftDashboard/DiscordWidget";
-import LoginModal from "../LoginModal"; // CHÚ Ý: Sếp nhớ tạo file này như tôi hướng dẫn nhé!
+// ✅ FIX: Bỏ dấu ngoặc nhọn ở LoginModal vì sếp dùng export default
+import LoginModal from "../LoginModal";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -16,7 +17,7 @@ const navItems = [
 
 export default function Header({ onPlayClick }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false); // Trạng thái đóng/mở Box Đăng Nhập
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const [audio] = useState(() => {
     const a = new Audio(
@@ -32,7 +33,6 @@ export default function Header({ onPlayClick }) {
     audio.play().catch(() => {});
   };
 
-  // Hàm mở Login và phát âm thanh cho nó "đã" tai
   const handleLoginOpen = () => {
     setIsLoginOpen(true);
     audio.currentTime = 0;
@@ -92,7 +92,6 @@ export default function Header({ onPlayClick }) {
               <DiscordWidget />
             </div>
 
-            {/* NÚT LOGIN PHONG CÁCH WYNN - Sẽ hiện trên cả PC lẫn Mobile */}
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={handleLoginOpen}
@@ -101,7 +100,6 @@ export default function Header({ onPlayClick }) {
               🔑 <span className="hidden xs:inline">Login</span>
             </motion.button>
 
-            {/* NÚT PLAY NOW */}
             <motion.button
               whileTap={{ scale: 0.96 }}
               className="btn-glow text-[10px] md:text-xs px-2 py-1.5 md:px-5 md:py-2.5 rounded active:translate-y-px font-bold"
@@ -172,7 +170,7 @@ export default function Header({ onPlayClick }) {
         </AnimatePresence>
       </header>
 
-      {/* RENDER BOX ĐĂNG NHẬP Ở ĐÂY */}
+      {/* LOGIN MODAL */}
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </>
   );
