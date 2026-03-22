@@ -1,9 +1,14 @@
+import React from "react";
 import { motion } from "framer-motion";
 import SkinViewer from "./SkinViewer";
 
-// LINK TEXTURE CHUẨN TỪ MOJANG CỦA SẾP
-const MySkinFile =
+// --- LINK TEXTURE CHUẨN TỪ MOJANG CỦA SẾP ---
+const Top1SkinFile =
   "https://textures.minecraft.net/texture/c906e07cf2ea820cd30135f6420a81c297aee68ead68f076ec30150939c4f850";
+const Top2SkinFile =
+  "https://textures.minecraft.net/texture/b03fa39137b70ebd1677db444bb0aea6935adcb8546f92e26b94e37695098e67";
+const Top3SkinFile =
+  "https://textures.minecraft.net/texture/8750816caaa7d7e3d7fce6214271504f2a58d6948e92a7ef804fa3e6bfe7b756";
 
 const topDonators = [
   { name: "AnhSuGame", amount: "1.500.000đ", rank: 1 },
@@ -22,12 +27,11 @@ export default function Leaderboard() {
   const topThree = topDonators.slice(0, 3);
   const others = topDonators.slice(3, 10);
 
-  // Link dự phòng cho các Top khác
-  const getFallbackSkin = (username) =>
-    `https://crafatar.com/renders/body/${username}?overlay`;
-
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
       id="leaderboard"
       className="py-12 px-4 max-w-7xl mx-auto flex flex-col lg:flex-row gap-6 items-start"
     >
@@ -38,13 +42,11 @@ export default function Leaderboard() {
         </h2>
 
         <div className="flex flex-row items-end justify-center gap-2 md:gap-8 mb-12 border-b border-white/10 pb-12">
-          {/* TOP 2 */}
-          <div className="flex flex-col items-center w-1/3">
-            <img
-              src={getFallbackSkin(topThree[1].name)}
-              alt="t2"
-              className="h-32 md:h-48 object-contain mb-3"
-            />
+          {/* TOP 2 - NHÂN VẬT 3D */}
+          <div className="flex flex-col items-center w-1/3 z-10">
+            <div className="w-full flex justify-center items-center py-2 drop-shadow-lg z-10 relative mb-2">
+              <SkinViewer skinUrl={Top2SkinFile} width={110} height={170} />
+            </div>
             <div className="w-full bg-slate-500/20 border border-white/10 rounded-t-2xl p-3 text-center">
               <span className="text-slate-300 font-black text-lg">#2</span>
               <p className="text-white font-minecraft text-[10px] md:text-sm truncate mt-1">
@@ -56,12 +58,12 @@ export default function Leaderboard() {
             </div>
           </div>
 
-          {/* TOP 1 - NHÂN VẬT 3D CHUYỂN ĐỘNG */}
-          <div className="flex flex-col items-center w-1/3 scale-110 z-10">
+          {/* TOP 1 - NHÂN VẬT 3D CHUYỂN ĐỘNG (TO NHẤT) */}
+          <div className="flex flex-col items-center w-1/3 scale-110 z-20">
             <span className="text-3xl mb-1 animate-bounce">👑</span>
 
             <div className="w-full flex justify-center items-center py-2 drop-shadow-[0_0_20px_rgba(250,204,21,0.5)] z-10 relative">
-              <SkinViewer skinUrl={MySkinFile} width={140} height={210} />
+              <SkinViewer skinUrl={Top1SkinFile} width={140} height={210} />
             </div>
 
             <div className="w-full bg-yellow-500/20 border border-yellow-400/40 rounded-t-3xl p-4 text-center ring-2 ring-yellow-400/20 mt-2">
@@ -75,13 +77,11 @@ export default function Leaderboard() {
             </div>
           </div>
 
-          {/* TOP 3 */}
-          <div className="flex flex-col items-center w-1/3">
-            <img
-              src={getFallbackSkin(topThree[2].name)}
-              alt="t3"
-              className="h-28 md:h-40 object-contain mb-3"
-            />
+          {/* TOP 3 - NHÂN VẬT 3D */}
+          <div className="flex flex-col items-center w-1/3 z-10">
+            <div className="w-full flex justify-center items-center py-2 drop-shadow-lg z-10 relative mb-2">
+              <SkinViewer skinUrl={Top3SkinFile} width={110} height={170} />
+            </div>
             <div className="w-full bg-amber-900/20 border border-white/10 rounded-t-2xl p-3 text-center">
               <span className="text-amber-600 font-black text-lg">#3</span>
               <p className="text-white font-minecraft text-[10px] md:text-sm truncate mt-1">
@@ -99,7 +99,7 @@ export default function Leaderboard() {
           {others.map((user) => (
             <div
               key={user.rank}
-              className="flex items-center justify-between bg-white/5 border border-white/10 px-5 py-3 rounded-2xl"
+              className="flex items-center justify-between bg-white/5 border border-white/10 px-5 py-3 rounded-2xl hover:bg-white/10 transition-colors"
             >
               <div className="flex items-center gap-4">
                 <span className="text-slate-500 font-black text-sm w-6">
@@ -117,9 +117,8 @@ export default function Leaderboard() {
         </div>
       </div>
 
-      {/* ================= PHẦN PHẢI: BẢNG QUÀ TẶNG (Nhỏ gọn) ================= */}
-      {/* Dùng h-fit để nó không bị kéo dài ra, w-[320px] để cố định độ rộng */}
-      <div className="w-full lg:w-[320px] shrink-0 bg-[#161824]/90 backdrop-blur-xl rounded-3xl border border-white/10 p-6 shadow-2xl h-fit">
+      {/* ================= PHẦN PHẢI: BẢNG QUÀ TẶNG ================= */}
+      <div className="w-full lg:w-[320px] shrink-0 bg-[#161824]/90 backdrop-blur-xl rounded-3xl border border-white/10 p-6 shadow-2xl h-fit sticky top-24">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-2xl">🎁</span>
           <h2 className="text-white text-lg font-bold tracking-wide uppercase">
@@ -143,6 +142,6 @@ export default function Leaderboard() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
