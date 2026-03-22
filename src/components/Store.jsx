@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// ===== 1. DATA (CAM KẾT GIỮ NGUYÊN 100% - KHÔNG THIẾU 1 CHỮ) =====
+// ===== 1. DATA (Giữ nguyên 100% của sếp) =====
 const exchangeTable = [
   { price: "10,000đ", tokens: "12 Xu", bonus: null },
   { price: "50,000đ", tokens: "60 Xu", bonus: null },
@@ -82,16 +82,15 @@ const items = [
   },
 ];
 
-// ===== 2. STYLES (MMORPG + RESPONSIVE + HIGH CONTRAST) =====
+// ===== 2. STYLES (Fix Cân bằng PC & Chống tràn PE) =====
 const S = {
   section: {
     minHeight: "100vh",
     padding: "30px 10px 80px",
     color: "#fff",
     position: "relative",
-    overflowX: "hidden",
   },
-  inner: { maxWidth: 1100, margin: "0 auto" },
+  inner: { maxWidth: 1150, margin: "0 auto" },
   h1: {
     fontFamily: "'Minecraft Overhaul', monospace",
     fontSize: "clamp(26px, 8vw, 55px)",
@@ -119,32 +118,37 @@ const S = {
     padding: "clamp(15px, 4vw, 30px)",
     backdropFilter: "blur(20px)",
     boxShadow: "0 40px 100px rgba(0,0,0,0.8)",
-    width: "100%",
   },
 
-  // Nạp xu PE-Friendly
-  napLayout: { display: "flex", gap: "20px", flexWrap: "wrap" },
+  // FIX NẠP XU: Cân bằng trên PC
+  napLayout: {
+    display: "flex",
+    gap: "25px",
+    flexWrap: "wrap",
+    alignItems: "stretch",
+  },
   napLeft: {
-    flex: "1 1 100%",
-    lgFlex: "1 1 350px",
+    flex: "1 1 450px",
     background: "rgba(255,255,255,0.03)",
     border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: "20px",
-    padding: "20px",
+    borderRadius: "24px",
+    padding: "25px",
+    display: "flex",
+    flexDirection: "column",
   },
   napRight: {
-    flex: "1 1 100%",
-    lgFlex: "1.2 1 400px",
+    flex: "1 1 450px",
     background: "#000",
-    borderRadius: "20px",
+    borderRadius: "24px",
     overflow: "hidden",
     border: "2px solid rgba(255,255,255,0.15)",
     minHeight: "550px",
+    display: "flex",
   },
 
   rateTable: { width: "100%", borderCollapse: "collapse" },
   rateTh: {
-    padding: "10px",
+    padding: "12px",
     color: "#f7d77a",
     fontSize: "12px",
     textAlign: "left",
@@ -154,12 +158,12 @@ const S = {
   },
   rateTd: {
     padding: "14px 10px",
-    fontSize: "14px",
+    fontSize: "15px",
     color: "#fff",
     borderBottom: "1px solid rgba(255,255,255,0.05)",
   },
 
-  // Huy hiệu Phổ Biến 3D
+  // Badge Phổ Biến MMORPG
   rankBadge: {
     position: "absolute",
     top: "-18px",
@@ -175,30 +179,6 @@ const S = {
     boxShadow: "0 0 20px rgba(255,165,0,0.7), 0 4px 0 #8B4513",
     fontFamily: "'Minecraft Overhaul', sans-serif",
     zIndex: 10,
-  },
-
-  // Rank Cards
-  rankCard: (rank) => ({
-    position: "relative",
-    padding: "45px 20px 30px",
-    borderRadius: 28,
-    border: `2px solid ${rank.border}`,
-    background: rank.bg,
-    backdropFilter: "blur(15px)",
-    textAlign: "center",
-    transition: "0.3s",
-  }),
-
-  // Vật phẩm Cards
-  itemCard: {
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: 24,
-    padding: "24px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    height: "100%",
   },
 };
 
@@ -221,7 +201,7 @@ export default function Store() {
           <p style={S.sub}>Ủng hộ server và nhận những đặc quyền tuyệt vời</p>
         </div>
 
-        {/* TABS (Responsive) */}
+        {/* TABS (Dùng Flex wrap cho Mobile) */}
         <div
           style={{
             display: "flex",
@@ -248,7 +228,7 @@ export default function Store() {
                 background:
                   activeTab === id
                     ? "rgba(247,215,122,0.2)"
-                    : "rgba(0,0,0,0.5)",
+                    : "rgba(0,0,0,0.4)",
                 color: activeTab === id ? "#f7d77a" : "#fff",
                 fontWeight: "bold",
                 cursor: "pointer",
@@ -268,9 +248,10 @@ export default function Store() {
         </div>
 
         <div style={S.panel}>
-          {/* TAB 1: NẠP XU (ĐÃ KHÔI PHỤC FULL 6 MỐC) */}
+          {/* TAB 1: NẠP XU (ĐÃ CÂN BẰNG LẠI PC) */}
           {activeTab === "nap-xu" && (
             <div style={S.napLayout}>
+              {/* Bảng giá quy đổi bên trái */}
               <div style={S.napLeft}>
                 <div
                   style={{
@@ -343,14 +324,16 @@ export default function Store() {
                   </tbody>
                 </table>
               </div>
+
+              {/* Iframe Form Nạp bên phải */}
               <div style={S.napRight}>
                 <iframe
                   src="https://thanhthao11040772-bit.github.io/cv/"
                   style={{
                     width: "100%",
                     height: "100%",
-                    minHeight: 550,
                     border: "none",
+                    minHeight: 550,
                   }}
                   title="Nạp"
                 />
@@ -358,17 +341,30 @@ export default function Store() {
             </div>
           )}
 
-          {/* TAB 2: MUA RANK (ĐÃ KHÔI PHỤC FULL PERKS) */}
+          {/* TAB 2: MUA RANK (GIỮ NGUYÊN FULL PERKS) */}
           {activeTab === "mua-rank" && (
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
                 gap: "25px",
               }}
             >
               {ranks.map((rank) => (
-                <div key={rank.name} style={{ ...S.rankCard(rank) }}>
+                <div
+                  key={rank.name}
+                  className="rank-card"
+                  style={{
+                    position: "relative",
+                    padding: "45px 20px 30px",
+                    borderRadius: 28,
+                    border: `2px solid ${rank.border}`,
+                    background: rank.bg,
+                    backdropFilter: "blur(15px)",
+                    textAlign: "center",
+                    transition: "0.3s",
+                  }}
+                >
                   {rank.badge && <div style={S.rankBadge}>{rank.badge}</div>}
                   <center>
                     <div
@@ -435,13 +431,7 @@ export default function Store() {
                           fontWeight: "bold",
                         }}
                       >
-                        <span
-                          style={{
-                            color: rank.glow,
-                            marginRight: 10,
-                            fontSize: 16,
-                          }}
-                        >
+                        <span style={{ color: rank.glow, marginRight: 10 }}>
                           ✔
                         </span>{" "}
                         {p}
@@ -463,7 +453,7 @@ export default function Store() {
                       transition: "0.1s",
                       transform:
                         clickingId === rank.name ? "scale(0.95)" : "scale(1)",
-                      boxShadow: `0 5px 0 rgba(0,0,0,0.3), 0 0 20px ${rank.glow}40`,
+                      boxShadow: `0 5px 0 rgba(0,0,0,0.3)`,
                     }}
                   >
                     SỞ HỮU NGAY
@@ -473,7 +463,7 @@ export default function Store() {
             </div>
           )}
 
-          {/* TAB 3: VẬT PHẨM (ĐÃ KHÔI PHỤC FULL 3 ITEMS) */}
+          {/* TAB 3: VẬT PHẨM (GIỮ NGUYÊN FULL 3 ITEMS) */}
           {activeTab === "vat-pham" && (
             <div
               style={{
@@ -483,7 +473,18 @@ export default function Store() {
               }}
             >
               {items.map((item, idx) => (
-                <div key={idx} style={{ ...S.itemCard }}>
+                <div
+                  key={idx}
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    borderRadius: 24,
+                    padding: "24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <div>
                     <div
                       className="icon-floating"
@@ -497,7 +498,6 @@ export default function Store() {
                         fontWeight: "900",
                         color: item.rarityColor,
                         textTransform: "uppercase",
-                        letterSpacing: 1,
                       }}
                     >
                       ◆ {item.rarity}
@@ -565,7 +565,6 @@ export default function Store() {
           )}
         </div>
       </div>
-
       <style>{`
         @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-12px); } }
         .icon-floating { animation: floating 3s ease-in-out infinite; }
