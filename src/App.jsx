@@ -5,7 +5,10 @@ import "./styles/index.css";
 import "./font-minecraft-overhaul.css";
 import Dashboard from "./components/MinecraftDashboard/Dashboard";
 import ParticlesBackground from "./components/Background/ParticlesBackground";
+
+// TÔI ĐÃ MỞ LẠI IMPORT HEADER VÀ XÓA IMPORT NAVBAR
 import Header from "./components/Layout/Header";
+
 import Footer from "./components/Layout/Footer";
 import Hero from "./components/Hero";
 import ServerInfo from "./components/ServerInfo";
@@ -56,6 +59,8 @@ export default function App() {
     <Router>
       <Dashboard>
         <ParticlesBackground />
+
+        {/* TÔI ĐÃ MỞ LẠI HEADER CŨ VÀ XÓA NAVBAR */}
         <Header onPlayClick={() => handleCopyIp("astralismc.xyz")} />
 
         <main className="relative z-10 min-h-[80vh] overflow-x-hidden">
