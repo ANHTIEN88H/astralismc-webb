@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Cart from "./Cart";
 
 // ===== 1. DATA (Giữ nguyên 100% của sếp) =====
 const exchangeTable = [
@@ -211,7 +212,7 @@ export default function Store() {
             flexWrap: "wrap",
           }}
         >
-          {["nap-xu", "mua-rank", "vat-pham"].map((id) => (
+          {["nap-xu", "mua-rank", "vat-pham", "gio-hang"].map((id) => (
             <button
               key={id}
               onClick={() => {
@@ -242,7 +243,9 @@ export default function Store() {
                 ? "💎 NẠP XU"
                 : id === "mua-rank"
                   ? "🏆 RANK"
-                  : "🗡️ VẬT PHẨM"}
+                  : id === "vat-pham"
+                    ? "🗡️ VẬT PHẨM"
+                    : "🛒 GIỎ HÀNG"}
             </button>
           ))}
         </div>
@@ -563,6 +566,9 @@ export default function Store() {
               ))}
             </div>
           )}
+
+          {/* TAB 4: GIỎ HÀNG */}
+          {activeTab === "gio-hang" && <Cart />}
         </div>
       </div>
       <style>{`

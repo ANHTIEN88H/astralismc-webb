@@ -1,15 +1,37 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-const NAV_ITEMS = [
-  { icon: "🏠", label: "Home", path: "/" },
-  { icon: "⚔️", label: "Game Modes", path: "/modes" },
-  { icon: "📊", label: "Server Info", path: "/info" },
-  { icon: "🏆", label: "Vinh Danh", path: "/leaderboard" },
-  { icon: "💰", label: "Donate - Store", path: "/store" },
-  { icon: "📜", label: "Rules", path: "/rules" },
-  { icon: "💬", label: "Contact", path: "/contact" },
+const NAV_GROUPS = [
+  {
+    label: "Game",
+    items: [
+      { label: "Survival", path: "/modes#survival" },
+      { label: "Skyblock", path: "/modes#skyblock" },
+      { label: "MMORPG", path: "/modes#mmorpg" },
+      { label: "Map", path: "/modes#map" },
+    ],
+  },
+  {
+    label: "Wiki",
+    items: [
+      { label: "Classes", path: "/classes" },
+      { label: "Items", path: "/store" },
+      { label: "Lore", path: "/about" },
+    ],
+  },
+  {
+    label: "Community",
+    items: [
+      { label: "Discord", href: "https://discord.gg/rzBWcVMp" },
+      { label: "Forums", path: "/contact" },
+      { label: "Rules", path: "/rules" },
+      { label: "Bảng xếp hạng", path: "/leaderboard" },
+    ],
+  },
 ];
+
+const BASE_LINKS = [{ label: "Home", path: "/" }];
+const STORE_CTA = { label: "Store", path: "/store" };
 
 export default function Header({ onPlayClick }) {
   const location = useLocation();
@@ -17,6 +39,7 @@ export default function Header({ onPlayClick }) {
 
   // State mới để điều khiển việc đóng/mở menu trên điện thoại
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openMobileGroup, setOpenMobileGroup] = useState(null);
 
   // Lấy số liệu Discord
   useEffect(() => {
@@ -75,26 +98,75 @@ export default function Header({ onPlayClick }) {
         </Link>
 
         {/* MENU CHÍNH Ở GIỮA (Chỉ hiện trên PC: lg:flex) */}
-        <nav className="hidden lg:flex items-center gap-4">
-          {NAV_ITEMS.map((item) => {
+        <nav className="hidden lg:flex items-center gap-3">
+          {BASE_LINKS.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center gap-1 text-[11px] font-semibold transition-all duration-200 hover:-translate-y-0.5 active:scale-90 ${
+                className={`text-[11px] font-semibold px-3 py-2 rounded-lg transition-all duration-200 ${
                   isActive
-                    ? "text-cyan-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.6)]"
-                    : "text-slate-200 hover:text-white"
+                    ? "text-cyan-300 bg-white/5 border border-cyan-400/30 drop-shadow-[0_0_6px_rgba(34,211,238,0.6)]"
+                    : "text-slate-200 hover:text-white hover:bg-white/5"
                 }`}
               >
-                <span className="text-sm filter drop-shadow-md">
-                  {item.icon}
-                </span>
-                <span className="tracking-wide">{item.label}</span>
+                {item.label}
               </Link>
             );
           })}
+
+          {NAV_GROUPS.map((group) => (
+            <div key={group.label} className="relative group">
+              <button className="flex items-center gap-1 text-[11px] font-semibold text-slate-200 hover:text-white px-3 py-2 rounded-lg transition-all duration-200 hover:bg-white/5">
+                {group.label}
+                <span className="text-xs">▾</span>
+              </button>
+              <div className="pointer-events-none absolute left-0 mt-2 w-56 opacity-0 translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 ease-out">
+                <div className="relative rounded-xl border border-cyan-500/30 bg-slate-900/80 backdrop-blur-md shadow-[0_0_15px_rgba(6,182,212,0.2)] before:absolute before:-top-6 before:left-0 before:w-full before:h-6 before:bg-transparent before:content-['']">
+                  <ul className="py-2">
+                    {group.items.map((item) => (
+                      <li key={item.label}>
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center justify-between px-4 py-2 text-[12px] text-slate-200 hover:text-white hover:bg-white/5 transition"
+                          >
+                            <span>{item.label}</span>
+                            <span className="text-[10px] text-cyan-300">↗</span>
+                          </a>
+                        ) : (
+                          <Link
+                            to={item.path}
+                            className={`flex px-4 py-2 text-[12px] items-center justify-between hover:bg-white/5 transition ${
+                              location.pathname.split("#")[0] ===
+                              (item.path || "").split("#")[0]
+                                ? "text-cyan-300"
+                                : "text-slate-200"
+                            }`}
+                          >
+                            <span>{item.label}</span>
+                            <span className="text-[10px] text-slate-400">
+                              →
+                            </span>
+                          </Link>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          <Link
+            to={STORE_CTA.path}
+            className="ml-1 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wide px-4 py-2 rounded-lg border border-amber-300/60 bg-gradient-to-r from-amber-500 via-orange-500 to-orange-600 text-white shadow-[0_0_22px_rgba(251,191,36,0.45)] hover:shadow-[0_0_28px_rgba(251,191,36,0.65)] hover:-translate-y-0.5 hover:scale-105 transition duration-200 animate-pulse"
+          >
+            💰 {STORE_CTA.label}
+          </Link>
         </nav>
 
         {/* CÁC NÚT BÊN PHẢI (PC) VÀ NÚT HAMBURGER (MOBILE) */}
@@ -199,24 +271,89 @@ export default function Header({ onPlayClick }) {
       {isMobileMenuOpen && (
         <div className="absolute top-[100%] left-0 w-full bg-indigo-950/95 backdrop-blur-xl border-b border-white/10 flex flex-col p-4 gap-4 lg:hidden shadow-2xl transition-all duration-300 origin-top animate-in slide-in-from-top-4">
           <nav className="flex flex-col gap-2">
-            {NAV_ITEMS.map((item) => {
-              const isActive = location.pathname === item.path;
+            {BASE_LINKS.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`flex items-center gap-3 p-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                  location.pathname === item.path
+                    ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
+                    : "text-slate-200 hover:bg-white/5 hover:text-white"
+                }`}
+              >
+                <span className="tracking-wide uppercase">{item.label}</span>
+              </Link>
+            ))}
+
+            {NAV_GROUPS.map((group) => {
+              const open = openMobileGroup === group.label;
               return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setIsMobileMenuOpen(false)} // Bấm xong tự đóng
-                  className={`flex items-center gap-3 p-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    isActive
-                      ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30"
-                      : "text-slate-200 hover:bg-white/5 hover:text-white"
-                  }`}
+                <div
+                  key={group.label}
+                  className="border border-white/5 rounded-lg bg-white/5 overflow-hidden"
                 >
-                  <span className="text-xl">{item.icon}</span>
-                  <span className="tracking-wide uppercase">{item.label}</span>
-                </Link>
+                  <button
+                    onClick={() =>
+                      setOpenMobileGroup(open ? null : group.label)
+                    }
+                    className="w-full px-3 py-2 flex items-center justify-between text-xs font-bold uppercase tracking-wide text-slate-200 bg-white/5"
+                  >
+                    <span>{group.label}</span>
+                    <span
+                      className={`text-[11px] transition-transform ${
+                        open ? "rotate-180 text-cyan-300" : "text-slate-400"
+                      }`}
+                    >
+                      ▾
+                    </span>
+                  </button>
+                  <div
+                    className={`flex flex-col transition-all duration-300 ${
+                      open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                    } overflow-hidden`}
+                  >
+                    {group.items.map((item) =>
+                      item.href ? (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-3 py-2 text-sm text-slate-200 hover:text-white hover:bg-white/5 flex justify-between"
+                        >
+                          <span>{item.label}</span>
+                          <span className="text-[10px] text-cyan-300">↗</span>
+                        </a>
+                      ) : (
+                        <Link
+                          key={item.label}
+                          to={item.path}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`px-3 py-2 text-sm flex justify-between hover:bg-white/5 transition ${
+                            location.pathname.split("#")[0] ===
+                            (item.path || "").split("#")[0]
+                              ? "text-cyan-300"
+                              : "text-slate-200"
+                          }`}
+                        >
+                          <span>{item.label}</span>
+                          <span className="text-[10px] text-slate-400">→</span>
+                        </Link>
+                      ),
+                    )}
+                  </div>
+                </div>
               );
             })}
+
+            <Link
+              to={STORE_CTA.path}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 p-3 rounded-lg text-sm font-bold uppercase tracking-wide border border-amber-300/60 bg-amber-500/15 text-amber-100 shadow-[0_0_12px_rgba(251,191,36,0.35)] hover:shadow-[0_0_18px_rgba(251,191,36,0.55)]"
+            >
+              💰 {STORE_CTA.label}
+            </Link>
           </nav>
 
           <div className="w-full h-[1px] bg-white/10 my-1"></div>

@@ -1,0 +1,44 @@
+# 🎯 Ngữ cảnh dự án (Project Context)
+
+Dự án này là website chính thức cho hệ thống Minecraft server AstralisMC Network.
+Mục tiêu: Cung cấp giao diện người dùng mượt mà, tối ưu hóa trải nghiệm người chơi, hiển thị thông tin server, cửa hàng (store), và các tính năng tương tác web-to-game.
+
+# ⚙️ Tech Stack (Ngăn xếp công nghệ)
+
+- Frontend: [Điền framework của bạn, ví dụ: Next.js, React] + [Tailwind CSS / Bootstrap]
+- Backend: [Ví dụ: Node.js, Express, hoặc PHP]
+- Database: [Ví dụ: MongoDB, MySQL]
+
+---
+
+# 🟢 NHỮNG ĐIỀU AI NÊN LÀM (DO's)
+
+1. **Viết code Modular & Tái sử dụng:** Chia nhỏ các UI component và logic function. Tránh viết các file quá dài (khuyến khích dưới 300 dòng/file).
+2. **Tuân thủ Type Safety:** Nếu sử dụng TypeScript, luôn định nghĩa Type/Interface rõ ràng cho các props, API responses và biến trạng thái (state). Không sử dụng `any`.
+3. **Xử lý lỗi (Error Handling) triệt để:** Luôn sử dụng `try/catch` cho các hàm gọi API (fetch/axios). Đảm bảo hiển thị thông báo lỗi thân thiện cho người dùng trên UI, thay vì chỉ để ứng dụng crash hoặc báo lỗi mập mờ.
+4. **Mobile-First & Responsive:** Đảm bảo giao diện web hiển thị tốt và không bị vỡ layout trên các thiết bị di động trước khi làm đẹp cho màn hình PC.
+5. **Viết comment có ý nghĩa:** Chỉ comment để giải thích "TẠI SAO" đoạn code này tồn tại (đối với logic phức tạp), không giải thích "CÁI GÌ" nếu code đã tự biểu đạt rõ ràng.
+6. **Chỉ sửa code đúng trọng tâm:** Khi được yêu cầu thêm tính năng hoặc fix bug, chỉ can thiệp vào đúng file/hàm cần thiết. Tuyệt đối không tự ý refactor (viết lại) toàn bộ hệ thống code không liên quan.
+
+---
+
+# 🔴 NHỮNG ĐIỀU AI KHÔNG NÊN LÀM (DON'Ts)
+
+1. **KHÔNG để lại mã rác (Dead code):** Không được đưa các dòng `console.log()`, mã bị comment out (`// code cũ`), hoặc các biến khai báo nhưng không sử dụng vào code hoàn chỉnh.
+2. **KHÔNG in lại toàn bộ file:** Khi sửa một lỗi nhỏ, chỉ cần hiển thị đoạn code được thay đổi kèm vài dòng ngữ cảnh xung quanh. Không in lại hàng trăm dòng code cũ để tránh mất thời gian đọc.
+3. **KHÔNG Over-engineer (Làm phức tạp hóa vấn đề):** Luôn ưu tiên giải pháp code đơn giản, dễ đọc và dễ bảo trì nhất. Không áp dụng các thuật toán hay design pattern phức tạp nếu bài toán không thực sự cần.
+4. **KHÔNG tự bịa ra API hoặc Thư viện (Hallucinate):** Chỉ sử dụng các thư viện, component hoặc phương thức có thật và đang được hỗ trợ. Nếu không chắc chắn, hãy dừng lại và yêu cầu tôi cung cấp tài liệu.
+5. **KHÔNG bỏ qua các nguyên tắc bảo mật web:** - Không render trực tiếp dữ liệu do người dùng nhập mà chưa qua xử lý (để tránh lỗi XSS).
+   - Không hardcode các thông tin nhạy cảm (API keys, passwords, database URI) trực tiếp vào file code. Luôn hướng dẫn sử dụng biến môi trường (`.env`).
+6. **KHÔNG sử dụng thư viện lỗi thời (Deprecated):** Đảm bảo các đoạn code sử dụng cú pháp hiện đại nhất của framework đang dùng (ví dụ: dùng Hooks trong React thay vì Class Components).
+
+---
+
+# 🦸‍♂️ SUPERPOWERS INSTRUCTIONS (KÍCH HOẠT KỸ NĂNG)
+
+Trước khi bắt đầu thực hiện bất kỳ yêu cầu nào, bạn PHẢI quét qua thư mục `skills/`.
+Nếu yêu cầu của người dùng khớp với một kỹ năng nào đó trong thư mục này (ví dụ: yêu cầu sửa lỗi -> dùng file systematic-debugging.md), bạn PHẢI mở file kỹ năng đó ra đọc và tuân thủ 100% quy trình bên trong đó trước khi viết code.
+
+---
+
+Sau khi hoàn thành một Issue trong Beads, BẠN PHẢI tự động chạy lệnh git add . và git commit -m \"hoàn thành issue <ID>: <nội dung>\"

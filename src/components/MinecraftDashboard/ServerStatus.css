@@ -205,13 +205,17 @@
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: #ff3b3b;
-  box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.55);
-  animation: pulseDot 1.2s ease-in-out infinite;
   flex-shrink: 0;
 }
 
-@keyframes pulseDot {
+/* Dot OFFLINE - Đỏ nhấp nháy */
+.dot-offline {
+  background: #ff3b3b;
+  box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.55);
+  animation: pulseDotRed 1.2s ease-in-out infinite;
+}
+
+@keyframes pulseDotRed {
   0% {
     box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.7);
   }
@@ -221,6 +225,57 @@
   100% {
     box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.1);
   }
+}
+
+/* Dot ONLINE - Xanh lá nhấp nháy */
+.dot-online {
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  animation: pulseDotGreen 1.2s ease-in-out infinite;
+}
+
+@keyframes pulseDotGreen {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.1);
+  }
+}
+
+/* Dot LOADING - Vàng xoay */
+.dot-loading {
+  background: #facc15;
+  animation: spinDot 0.8s linear infinite;
+}
+
+@keyframes spinDot {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Players Online - hiển thị số người chơi */
+.players-online {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(34, 197, 94, 0.95);
+  font-weight: 700;
+  font-size: 14px;
+  animation: fadeIn 0.6s ease-out 0.3s both;
 }
 
 .error {

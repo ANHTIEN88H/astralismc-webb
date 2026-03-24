@@ -32,26 +32,14 @@ export default function Dashboard({ children }) {
   }, []);
 
   return (
-    <div
-      style={{
-        backgroundImage: 'url("/assets/minecraft-landscape.png")',
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-        minHeight: "100vh",
-        position: "relative",
-      }}
-    >
-      {/* Gradient overlay */}
-      <div
-        className="bg-gradient-neon"
-        style={{
-          position: "fixed",
-          inset: 0,
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      ></div>
+    <div className="min-h-screen relative bg-gradient-to-b from-[#05060d] via-[#060912] to-[#05060d]">
+      {/* Overlay noise & subtle vignette */}
+      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.18),transparent_32%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_15%,rgba(236,72,153,0.18),transparent_28%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,rgba(16,185,129,0.12),transparent_32%)]" />
+        <div className="absolute inset-0 bg-black/30" />
+      </div>
 
       {/* Animated floating blocks layer */}
       <div

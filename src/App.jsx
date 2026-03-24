@@ -19,6 +19,10 @@ import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Toast from "./components/Toast";
 import Leaderboard from "./components/Leaderboard";
+import ClassesShowcase from "./components/ClassesShowcase";
+import VanguardDetail from "./pages/classes/VanguardDetail";
+import AetherMageDetail from "./pages/classes/AetherMageDetail";
+import VoidWalkerDetail from "./pages/classes/VoidWalkerDetail";
 
 export default function App() {
   const [toast, setToast] = useState("");
@@ -68,18 +72,43 @@ export default function App() {
             <Route
               path="/"
               element={
-                <>
-                  <Hero
-                    onCopyIp={handleCopyIp}
-                    onJoinDiscord={handleJoinDiscord}
-                  />
+                <Hero
+                  onCopyIp={handleCopyIp}
+                  onJoinDiscord={handleJoinDiscord}
+                />
+              }
+            />
 
-                  <div className="w-full pt-16 pb-20 px-4 md:px-8">
-                    <ServerAchievements />
-                  </div>
-
-                  <Gallery />
-                </>
+            <Route
+              path="/classes"
+              element={
+                <PageWrapper>
+                  <ClassesShowcase />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/classes/vanguard"
+              element={
+                <PageWrapper>
+                  <VanguardDetail />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/classes/aether-mage"
+              element={
+                <PageWrapper>
+                  <AetherMageDetail />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/classes/void-walker"
+              element={
+                <PageWrapper>
+                  <VoidWalkerDetail />
+                </PageWrapper>
               }
             />
 
@@ -112,6 +141,17 @@ export default function App() {
               element={
                 <PageWrapper>
                   <Store />
+                </PageWrapper>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <PageWrapper>
+                  <div className="space-y-16">
+                    <ServerAchievements />
+                    <Gallery />
+                  </div>
                 </PageWrapper>
               }
             />

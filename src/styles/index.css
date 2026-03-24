@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -151,8 +153,6 @@ body {
 /* ─────────────────────────────────────────────────────────────────────────── */
 /* MENU MỚI - MMORPG STYLE (BỔ SUNG VÀO DƯỚI CÙNG) */
 /* ─────────────────────────────────────────────────────────────────────────── */
-
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 .menu-wrapper {
   width: 100%;

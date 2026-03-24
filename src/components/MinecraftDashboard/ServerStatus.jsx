@@ -1,11 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./ServerStatus.css";
+
+const API_URL = "https://api.mcsrvstat.us/3/astralismc.xyz";
+const REFRESH_INTERVAL = 30000; // 30 giây
+const IP = "astralismc.xyz";
 
 export default function ServerStatus() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [serverData, setServerData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const IP = "astralismc.xyz";
+  // Fetch server status from API
+  const fetchServerStatus = useCallback(async () => {
+    try {
+      setError(null);
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const data = await response.json();
+      setServerData(data);
+    } catch (err) {
+      setError(err.message || "Không thể kết nối đến server");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Fetch on mount and auto-refresh every 30 seconds
+  useEffect(() => {
+    fetchServerStatus();
+    const interval = setInterval(fetchServerStatus, REFRESH_INTERVAL);
+    return () => clearInterval(interval);
+  }, [fetchServerStatus]);
+
+  // Determine server status
+  const isOnline = serverData?.online === true;
+  const playerCount = serverData?.players?.online ?? 0;
+  const maxPlayers = serverData?.players?.max ?? 0;
 
   // Show toast with auto-dismiss
   const showToastMsg = (message) => {
@@ -138,27 +172,76 @@ export default function ServerStatus() {
             </div>
 
             <div className="status-main">
-              <div className="status-line">
-                <span className="dot" aria-hidden="true"></span>
-                <span id="statusText">OFFLINE</span>
-              </div>
+              {isLoading ? (
+                <div className="status-line">
+                  <span className="dot dot-loading" aria-hidden="true"></span>
+                  <span>Đang tải...</span>
+                </div>
+              ) : (
+                <>
+                  <div className="status-line">
+                    <span
+                      className={`dot ${isOnline ? "dot-online" : "dot-offline"}`}
+                      aria-hidden="true"
+                    ></span>
+                    <span>{isOnline ? "ONLINE" : "OFFLINE"}</span>
+                  </div>
 
-              <div className="error">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  style={{ width: "16px", height: "16px" }}
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M7 7l10 10M17 7L7 17"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <span id="errorText">HTTP 404</span>
-              </div>
+                  {isOnline ? (
+                    <div className="players-online">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        style={{ width: "16px", height: "16px" }}
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M9 11a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M17 12a2.5 2.5 0 1 0-2.5-2.5A2.5 2.5 0 0 0 17 12Z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          opacity="0.9"
+                        />
+                        <path
+                          d="M3.5 20a5.5 5.5 0 0 1 11 0"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M14.2 20a4.2 4.2 0 0 1 6.3 0"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          opacity="0.9"
+                        />
+                      </svg>
+                      <span>
+                        Đang chơi: {playerCount} / {maxPlayers}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="error">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        style={{ width: "16px", height: "16px" }}
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M7 7l10 10M17 7L7 17"
+                          stroke="currentColor"
+                          strokeWidth="2.2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <span>{error || "Server Offline"}</span>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
