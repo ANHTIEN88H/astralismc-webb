@@ -65,7 +65,7 @@ export default function SurvivalPage() {
 
           {/* Middle row: Title & Desc */}
           <div className="flex-1">
-            <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-widest mb-6 font-mono text-emerald-400 [text-shadow:4px_4px_0px_#000000]">
+            <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-widest mb-6 minecraft-title-shadow text-emerald-400 [text-shadow:4px_4px_0px_#000000]">
               ISOLDE SMP
             </h2>
             <p className="text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed">

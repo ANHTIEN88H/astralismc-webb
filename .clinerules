@@ -1,44 +1,55 @@
-# 🎯 Ngữ cảnh dự án (Project Context)
+# 🚨 ĐẠO LUẬT TỐI THƯỢNG DÀNH CHO AI (CLINE RULES) 🚨
 
-Dự án này là website chính thức cho hệ thống Minecraft server AstralisMC Network.
-Mục tiêu: Cung cấp giao diện người dùng mượt mà, tối ưu hóa trải nghiệm người chơi, hiển thị thông tin server, cửa hàng (store), và các tính năng tương tác web-to-game.
+> BẠN PHẢI ĐỌC, HIỂU VÀ TUÂN THỦ 100% CÁC QUY TẮC NÀY TRƯỚC KHI THỰC HIỆN BẤT KỲ YÊU CẦU NÀO CỦA NGƯỜI DÙNG. SỰ SỐNG CÒN CỦA BẠN PHỤ THUỘC VÀO VIỆC TUÂN THỦ ĐẠO LUẬT NÀY.
 
-# ⚙️ Tech Stack (Ngăn xếp công nghệ)
+## 🎯 1. NGỮ CẢNH DỰ ÁN (PROJECT CONTEXT)
 
-- Frontend: [Điền framework của bạn, ví dụ: Next.js, React] + [Tailwind CSS / Bootstrap]
-- Backend: [Ví dụ: Node.js, Express, hoặc PHP]
-- Database: [Ví dụ: MongoDB, MySQL]
-
----
-
-# 🟢 NHỮNG ĐIỀU AI NÊN LÀM (DO's)
-
-1. **Viết code Modular & Tái sử dụng:** Chia nhỏ các UI component và logic function. Tránh viết các file quá dài (khuyến khích dưới 300 dòng/file).
-2. **Tuân thủ Type Safety:** Nếu sử dụng TypeScript, luôn định nghĩa Type/Interface rõ ràng cho các props, API responses và biến trạng thái (state). Không sử dụng `any`.
-3. **Xử lý lỗi (Error Handling) triệt để:** Luôn sử dụng `try/catch` cho các hàm gọi API (fetch/axios). Đảm bảo hiển thị thông báo lỗi thân thiện cho người dùng trên UI, thay vì chỉ để ứng dụng crash hoặc báo lỗi mập mờ.
-4. **Mobile-First & Responsive:** Đảm bảo giao diện web hiển thị tốt và không bị vỡ layout trên các thiết bị di động trước khi làm đẹp cho màn hình PC.
-5. **Viết comment có ý nghĩa:** Chỉ comment để giải thích "TẠI SAO" đoạn code này tồn tại (đối với logic phức tạp), không giải thích "CÁI GÌ" nếu code đã tự biểu đạt rõ ràng.
-6. **Chỉ sửa code đúng trọng tâm:** Khi được yêu cầu thêm tính năng hoặc fix bug, chỉ can thiệp vào đúng file/hàm cần thiết. Tuyệt đối không tự ý refactor (viết lại) toàn bộ hệ thống code không liên quan.
+- **Tên dự án:** AstralisMC Network - Website chính thức.
+- **Mục tiêu:** Cung cấp giao diện UI/UX mượt mà, tối ưu trải nghiệm người chơi, tích hợp Store và tính năng Web-to-Game. Đẳng cấp thẩm mỹ sánh ngang Wynncraft.
+- **Ngăn xếp công nghệ (Tech Stack) BẮT BUỘC:**
+  - Frontend: [Điền Framework: React/Vite/Next.js] + Tailwind CSS
+  - Backend: [Điền Backend: Node.js/Java...]
+  - Database: [Điền DB: MongoDB/MySQL...]
 
 ---
 
-# 🔴 NHỮNG ĐIỀU AI KHÔNG NÊN LÀM (DON'Ts)
+## 🛑 2. LỆNH CẤM KỴ (DON'Ts) - VI PHẠM SẼ BỊ HỦY BỎ TÁC VỤ
 
-1. **KHÔNG để lại mã rác (Dead code):** Không được đưa các dòng `console.log()`, mã bị comment out (`// code cũ`), hoặc các biến khai báo nhưng không sử dụng vào code hoàn chỉnh.
-2. **KHÔNG in lại toàn bộ file:** Khi sửa một lỗi nhỏ, chỉ cần hiển thị đoạn code được thay đổi kèm vài dòng ngữ cảnh xung quanh. Không in lại hàng trăm dòng code cũ để tránh mất thời gian đọc.
-3. **KHÔNG Over-engineer (Làm phức tạp hóa vấn đề):** Luôn ưu tiên giải pháp code đơn giản, dễ đọc và dễ bảo trì nhất. Không áp dụng các thuật toán hay design pattern phức tạp nếu bài toán không thực sự cần.
-4. **KHÔNG tự bịa ra API hoặc Thư viện (Hallucinate):** Chỉ sử dụng các thư viện, component hoặc phương thức có thật và đang được hỗ trợ. Nếu không chắc chắn, hãy dừng lại và yêu cầu tôi cung cấp tài liệu.
-5. **KHÔNG bỏ qua các nguyên tắc bảo mật web:** - Không render trực tiếp dữ liệu do người dùng nhập mà chưa qua xử lý (để tránh lỗi XSS).
-   - Không hardcode các thông tin nhạy cảm (API keys, passwords, database URI) trực tiếp vào file code. Luôn hướng dẫn sử dụng biến môi trường (`.env`).
-6. **KHÔNG sử dụng thư viện lỗi thời (Deprecated):** Đảm bảo các đoạn code sử dụng cú pháp hiện đại nhất của framework đang dùng (ví dụ: dùng Hooks trong React thay vì Class Components).
-
----
-
-# 🦸‍♂️ SUPERPOWERS INSTRUCTIONS (KÍCH HOẠT KỸ NĂNG)
-
-Trước khi bắt đầu thực hiện bất kỳ yêu cầu nào, bạn PHẢI quét qua thư mục `skills/`.
-Nếu yêu cầu của người dùng khớp với một kỹ năng nào đó trong thư mục này (ví dụ: yêu cầu sửa lỗi -> dùng file systematic-debugging.md), bạn PHẢI mở file kỹ năng đó ra đọc và tuân thủ 100% quy trình bên trong đó trước khi viết code.
+1. **CẤM Ảo giác (Hallucinate):** KHÔNG ĐƯỢC tự bịa ra API, Thư viện, Component hoặc class Tailwind không tồn tại. Nếu không chắc chắn, PHẢI hỏi lại người dùng.
+2. **CẤM In lại code thừa thãi:** Khi sửa file, BẮT BUỘC dùng công cụ `edit_file` hoặc `apply_diff`. TUYỆT ĐỐI KHÔNG in lại toàn bộ hàng trăm dòng code ra khung chat để giải thích. Chỉ in ra màn hình những dòng thực sự bị thay đổi.
+3. **CẤM Để lại Rác (Dead Code):** KHÔNG được commit hoặc lưu file chứa `console.log()` (trừ khi cố tình để debug), mã bị comment out (`// code cũ`), hoặc biến khai báo nhưng không dùng.
+4. **CẤM Phá vỡ UI/UX:** Khi code Front-end, KHÔNG dùng màu sắc rực rỡ sai lệch theme gốc (Dark Fantasy). KHÔNG render dữ liệu người dùng mà chưa escape (Chống XSS).
+5. **CẤM Tự ý Refactor:** Chỉ sửa ĐÚNG file và hàm liên quan đến Issue/Yêu cầu. KHÔNG tự ý dọn dẹp, viết lại toàn bộ file/hệ thống nếu người dùng không yêu cầu.
+6. **CẤM Chạy lệnh Terminal bừa bãi:** Không tự ý chạy các lệnh mở trình duyệt (như `open`, `start`). Trình duyệt sẽ do người dùng tự mở.
 
 ---
 
-Sau khi hoàn thành một Issue trong Beads, BẠN PHẢI tự động chạy lệnh git add . và git commit -m \"hoàn thành issue <ID>: <nội dung>\"
+## 🟢 3. TIÊU CHUẨN MÃ NGUỒN (DO's) - BẮT BUỘC THỰC THI
+
+1. **Type Safety (An toàn kiểu dữ liệu):** Luôn định nghĩa Type/Interface rõ ràng. TUYỆT ĐỐI KHÔNG dùng `any` nếu code TypeScript.
+2. **Error Handling (Bắt lỗi triệt để):** Mọi lệnh gọi API/Async BẮT BUỘC phải nằm trong block `try/catch`. Khi lỗi, phải có phương án UI hiển thị thân thiện, không để web trắng (crash).
+3. **Mobile-First & Component Hóa:** Code luôn phải Responsive trước. Chia nhỏ UI thành các component tái sử dụng. File không nên vượt quá 300 dòng.
+4. **KISS (Keep It Simple, Stupid):** Code đơn giản, tường minh. Giải quyết vấn đề bằng đường thẳng, không Over-engineer dùng Design Pattern phức tạp khi không cần thiết.
+
+---
+
+## 🦸‍♂️ 4. KÍCH HOẠT KỸ NĂNG (SUPERPOWERS & SKILLS)
+
+Hệ thống này có chứa thư mục `skills/` và các quy trình chuẩn. Trước khi bắt đầu viết code:
+
+1. **QUÉT THƯ MỤC SKILLS:** Bạn PHẢI quét thư mục `skills/` (và các file `.md` liên quan). Nếu yêu cầu khớp với quy trình nào (VD: Debugging, TDD), bạn PHẢI mở và làm theo 100% hướng dẫn trong file đó.
+2. **QUY TRÌNH TDD (NẾU CÓ):** Nếu người dùng yêu cầu làm TDD, BẮT BUỘC phải đọc và tuân thủ file `tdd.md` (Quy trình 3 bước Red-Green-Refactor). Cấm viết Source code khi chưa có Unit Test báo lỗi (Fail).
+
+---
+
+## 🔄 5. QUY TRÌNH QUẢN LÝ TASK & GIT (BEADS SYSTEM)
+
+BẠN ĐANG LÀM VIỆC THEO HỆ THỐNG ISSUE CỦA BEADS. Bắt buộc thực hiện quy trình sau khi người dùng thông báo hoàn thành một Issue:
+
+1. Xác minh mã nguồn chạy không có lỗi (Không có lỗi đỏ trên terminal server hiện tại).
+2. Tự động mở Terminal và chạy lệnh gộp:
+   `git add .`
+3. Tự động chạy lệnh commit với định dạng chuẩn:
+   `git commit -m "hoàn thành issue <ID>: <nội dung tóm tắt tính năng/fix lỗi>"`
+   _(Ví dụ: git commit -m "hoàn thành issue #12: nâng cấp giao diện 3 trang Game Mode chuẩn Wynncraft")_
+4. Chỉ báo cáo cho người dùng sau khi git commit thành công.
