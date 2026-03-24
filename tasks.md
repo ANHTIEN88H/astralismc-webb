@@ -27,3 +27,12 @@
 - [x] Tạo NewsSection.jsx với tiêu đề "TIN TỨC & CẬP NHẬT" và grid 1 cột mobile / 3 cột desktop.
 - [x] Thiết kế 3 News Card theo style dark glass, tag neon, hover scale cover + viền cyan + icon mũi tên trượt.
 - [x] Import và render NewsSection ngay dưới Hero Banner ở route trang chủ (/).
+
+## Epic: Wiki - Item Database
+
+- [x] Tạo trang mới `src/pages/ItemsWiki.jsx` theo bố cục 2 cột: sidebar lọc + lưới vật phẩm.
+- [x] Thêm thanh tìm kiếm theo tên và bộ lọc đa chọn theo Độ hiếm/Loại vật phẩm.
+- [x] Dựng mock data 5 vật phẩm MMORPG và render bằng card style tooltip Minecraft (dark fantasy).
+- [x] Thiết kế typography card: màu tên theo rarity, dòng phân loại, stat cộng/trừ, lore in nghiêng.
+- [x] Đăng ký route `/items` trong `src/App.jsx`.
+- [x] Cập nhật menu Wiki (Header) để mục Items trỏ đến `/items`.

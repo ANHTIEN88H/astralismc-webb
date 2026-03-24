@@ -24,6 +24,7 @@ import NewsSection from "./components/NewsSection";
 import VanguardDetail from "./pages/classes/VanguardDetail";
 import AetherMageDetail from "./pages/classes/AetherMageDetail";
 import VoidWalkerDetail from "./pages/classes/VoidWalkerDetail";
+import ItemsWiki from "./pages/ItemsWiki";
 
 export default function App() {
   const [toast, setToast] = useState("");
@@ -112,6 +113,15 @@ export default function App() {
               element={
                 <PageWrapper>
                   <VoidWalkerDetail />
+                </PageWrapper>
+              }
+            />
+
+            <Route
+              path="/items"
+              element={
+                <PageWrapper>
+                  <ItemsWiki />
                 </PageWrapper>
               }
             />

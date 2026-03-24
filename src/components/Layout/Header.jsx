@@ -15,7 +15,7 @@ const NAV_GROUPS = [
     label: "Wiki",
     items: [
       { label: "Classes", path: "/classes" },
-      { label: "Items", path: "/store" },
+      { label: "Items", path: "/items" },
       { label: "Lore", path: "/about" },
     ],
   },
