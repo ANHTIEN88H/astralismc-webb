@@ -45,3 +45,10 @@
 - [x] Thêm badge "PHỔ BIẾN NHẤT" cho VOID WALKER và danh sách perks có check icon xanh.
 - [x] Thêm nút "MUA NGAY" full-width, gradient theo rank với hiệu ứng `hover:scale-105` và `active:scale-95`.
 - [x] Kết nối route `/store` trong `src/App.jsx` để dùng `StorePage`.
+
+## Epic: Store Emergency Restore (Surgical Rank Update)
+
+- [x] Khôi phục bố cục Store cũ vào `src/pages/StorePage.jsx` (tabs, nạp xu, vật phẩm, giỏ hàng) để tránh mất giao diện hiện có.
+- [x] Chỉ thay phần rank trong tab `mua-rank` thành 3 gói mới: AETHER KNIGHT, VOID WALKER, ASTRAL LORD.
+- [x] Áp dụng dark glass card (`bg-slate-800/60`, `backdrop-blur`, `rounded-2xl`), badge PHỔ BIẾN NHẤT cho VOID WALKER, glow mạnh nhất cho ASTRAL LORD.
+- [x] Nút `MUA NGAY` đổi sang gradient theo từng rank với hiệu ứng `hover:scale-105` và `active:scale-95`.
