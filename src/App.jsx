@@ -25,6 +25,9 @@ import AetherMageDetail from "./pages/classes/AetherMageDetail";
 import VoidWalkerDetail from "./pages/classes/VoidWalkerDetail";
 import ItemsWiki from "./pages/ItemsWiki";
 import StorePage from "./pages/StorePage";
+import SurvivalPage from "./pages/SurvivalPage";
+import SkyblockPage from "./pages/SkyblockPage";
+import MMORPGPage from "./pages/MMORPGPage";
 
 export default function App() {
   const [toast, setToast] = useState("");
@@ -185,6 +188,9 @@ export default function App() {
                 </PageWrapper>
               }
             />
+            <Route path="/survival" element={<SurvivalPage />} />
+            <Route path="/skyblock" element={<SkyblockPage />} />
+            <Route path="/mmorpg" element={<MMORPGPage />} />
           </Routes>
         </main>
 

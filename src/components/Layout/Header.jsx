@@ -5,9 +5,9 @@ const NAV_GROUPS = [
   {
     label: "Game",
     items: [
-      { label: "Survival", path: "/modes#survival" },
-      { label: "Skyblock", path: "/modes#skyblock" },
-      { label: "MMORPG", path: "/modes#mmorpg" },
+      { label: "Survival", path: "/survival" },
+      { label: "Skyblock", path: "/skyblock" },
+      { label: "MMORPG", path: "/mmorpg" },
       { label: "Map", path: "/modes#map" },
     ],
   },
