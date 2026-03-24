@@ -13,7 +13,6 @@ import Footer from "./components/Layout/Footer";
 import Hero from "./components/Hero";
 import ServerInfo from "./components/ServerInfo";
 import GameModes from "./components/GameModes";
-import Store from "./components/Store";
 import Rules from "./components/Rules";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
@@ -25,6 +24,7 @@ import VanguardDetail from "./pages/classes/VanguardDetail";
 import AetherMageDetail from "./pages/classes/AetherMageDetail";
 import VoidWalkerDetail from "./pages/classes/VoidWalkerDetail";
 import ItemsWiki from "./pages/ItemsWiki";
+import StorePage from "./pages/StorePage";
 
 export default function App() {
   const [toast, setToast] = useState("");
@@ -154,7 +154,7 @@ export default function App() {
               path="/store"
               element={
                 <PageWrapper>
-                  <Store />
+                  <StorePage />
                 </PageWrapper>
               }
             />

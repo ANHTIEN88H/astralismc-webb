@@ -36,3 +36,12 @@
 - [x] Thiết kế typography card: màu tên theo rarity, dòng phân loại, stat cộng/trừ, lore in nghiêng.
 - [x] Đăng ký route `/items` trong `src/App.jsx`.
 - [x] Cập nhật menu Wiki (Header) để mục Items trỏ đến `/items`.
+
+## Epic: Store / Donate Page Revamp
+
+- [x] Tạo trang mới `src/pages/StorePage.jsx` với header "CỬA HÀNG ASTRALIS" và mô tả donate theo yêu cầu.
+- [x] Thiết kế layout rank theo `grid-cols-1 md:grid-cols-3` cho 3 gói AETHER KNIGHT, VOID WALKER, ASTRAL LORD.
+- [x] Áp dụng style thẻ kính mờ `bg-slate-800/60`, `backdrop-blur`, `rounded-2xl`, glow theo từng rank và glow mạnh nhất cho ASTRAL LORD.
+- [x] Thêm badge "PHỔ BIẾN NHẤT" cho VOID WALKER và danh sách perks có check icon xanh.
+- [x] Thêm nút "MUA NGAY" full-width, gradient theo rank với hiệu ứng `hover:scale-105` và `active:scale-95`.
+- [x] Kết nối route `/store` trong `src/App.jsx` để dùng `StorePage`.
