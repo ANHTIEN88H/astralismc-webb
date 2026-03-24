@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const loreHighlights = [
@@ -8,6 +9,61 @@ const loreHighlights = [
 
 export default function Hero({ onCopyIp, onJoinDiscord }) {
   const serverIp = "astralismc.xyz";
+  const [onlinePlayers, setOnlinePlayers] = useState(null);
+  const [isMaintenance, setIsMaintenance] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const fetchLiveRealmFeed = async () => {
+      try {
+        const response = await fetch(
+          "https://api.mcsrvstat.us/2/mc.hypixel.net",
+          {
+            signal: controller.signal,
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error("Không thể đồng bộ Live Realm Feed.");
+        }
+
+        const data = await response.json();
+        const nextOnlinePlayers = data?.players?.online;
+        const serverOnline = Boolean(data?.online);
+
+        if (!isMounted) {
+          return;
+        }
+
+        if (serverOnline && typeof nextOnlinePlayers === "number") {
+          setOnlinePlayers(nextOnlinePlayers);
+          setIsMaintenance(false);
+          return;
+        }
+
+        setOnlinePlayers(null);
+        setIsMaintenance(true);
+      } catch (error) {
+        if (error?.name === "AbortError" || !isMounted) {
+          return;
+        }
+
+        setOnlinePlayers(null);
+        setIsMaintenance(true);
+      }
+    };
+
+    fetchLiveRealmFeed();
+    const pollingId = window.setInterval(fetchLiveRealmFeed, 60000);
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+      window.clearInterval(pollingId);
+    };
+  }, []);
 
   return (
     <section
@@ -112,8 +168,14 @@ export default function Hero({ onCopyIp, onJoinDiscord }) {
               <span className="pixel-title text-[10px] text-cyan-200 tracking-[0.25em]">
                 LIVE REALM FEED
               </span>
-              <span className="rounded-md bg-emerald-500/20 border border-emerald-400/40 px-2 py-1 text-[10px] font-bold text-emerald-100">
-                SYNCED
+              <span
+                className={`rounded-md border px-2 py-1 text-[10px] font-bold ${
+                  isMaintenance
+                    ? "bg-red-500/15 border-red-400/40 text-red-100"
+                    : "bg-emerald-500/20 border-emerald-400/40 text-emerald-100"
+                }`}
+              >
+                {isMaintenance ? "BẢO TRÌ" : "SYNCED"}
               </span>
             </div>
 
@@ -122,8 +184,21 @@ export default function Hero({ onCopyIp, onJoinDiscord }) {
                 <p className="text-[12px] text-cyan-200 font-semibold uppercase tracking-wide">
                   Frontline Instance
                 </p>
-                <div className="text-3xl font-black text-white">+160</div>
-                <p className="text-[12px] text-slate-300">Player peak / ngày</p>
+                <div className="text-3xl font-black text-white">
+                  {isMaintenance ? (
+                    <span className="inline-flex items-center gap-2 text-2xl text-red-200 md:text-3xl">
+                      <span className="h-2.5 w-2.5 rounded-full bg-red-500 animate-pulse" />
+                      Bảo Trì
+                    </span>
+                  ) : (
+                    `+${onlinePlayers?.toLocaleString("vi-VN") ?? "0"}`
+                  )}
+                </div>
+                <p className="text-[12px] text-slate-300">
+                  {isMaintenance
+                    ? "API lỗi hoặc server đang offline."
+                    : "Người chơi online thời gian thực"}
+                </p>
               </div>
               <div className="rounded-xl border border-white/10 bg-white/5 p-4 shadow-inner space-y-2">
                 <p className="text-[12px] text-cyan-200 font-semibold uppercase tracking-wide">

@@ -20,6 +20,7 @@ import Contact from "./components/Contact";
 import Toast from "./components/Toast";
 import Leaderboard from "./components/Leaderboard";
 import ClassesShowcase from "./components/ClassesShowcase";
+import NewsSection from "./components/NewsSection";
 import VanguardDetail from "./pages/classes/VanguardDetail";
 import AetherMageDetail from "./pages/classes/AetherMageDetail";
 import VoidWalkerDetail from "./pages/classes/VoidWalkerDetail";
@@ -72,10 +73,13 @@ export default function App() {
             <Route
               path="/"
               element={
-                <Hero
-                  onCopyIp={handleCopyIp}
-                  onJoinDiscord={handleJoinDiscord}
-                />
+                <>
+                  <Hero
+                    onCopyIp={handleCopyIp}
+                    onJoinDiscord={handleJoinDiscord}
+                  />
+                  <NewsSection />
+                </>
               }
             />
 
